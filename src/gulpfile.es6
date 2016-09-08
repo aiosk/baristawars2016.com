@@ -67,7 +67,7 @@ gulp.task('project', () => {
         .pipe(gulp.dest('./'))
 });
 
-gulp.task('default', ['setWatch'], () => {
+gulp.task('default', () => {
     const browserSyncOpts = {
         server: 'dist/',
         port: 8500,
@@ -79,7 +79,7 @@ gulp.task('default', ['setWatch'], () => {
     browserSync.init(browserSyncOpts);
 
     gulp.watch('./src/*.es6', ['project']);
-    gulp.watch('./src/web/sass/normalize.scss', ['normalize']);
+    gulp.watch('./src/sass/normalize.scss', ['normalize']);
     gulp.watch('./src/sass/**/*.scss', ['webCss']);
 
     gulp.watch('./src/pug/**/*.pug', ['webHtml']);

@@ -79,7 +79,7 @@ _gulp2.default.task('project', function () {
     return _gulp2.default.src('./src/*.es6').pipe((0, _gulpPlumber2.default)()).pipe((0, _gulpBabel2.default)(babelOpts)).pipe(_gulp2.default.dest('./'));
 });
 
-_gulp2.default.task('default', ['setWatch'], function () {
+_gulp2.default.task('default', function () {
     var browserSyncOpts = {
         server: 'dist/',
         port: 8500,
@@ -91,7 +91,7 @@ _gulp2.default.task('default', ['setWatch'], function () {
     browserSync.init(browserSyncOpts);
 
     _gulp2.default.watch('./src/*.es6', ['project']);
-    _gulp2.default.watch('./src/web/sass/normalize.scss', ['normalize']);
+    _gulp2.default.watch('./src/sass/normalize.scss', ['normalize']);
     _gulp2.default.watch('./src/sass/**/*.scss', ['webCss']);
 
     _gulp2.default.watch('./src/pug/**/*.pug', ['webHtml']);
