@@ -36,6 +36,10 @@ var _gulpFilter = require('gulp-filter');
 
 var _gulpFilter2 = _interopRequireDefault(_gulpFilter);
 
+var _gulpConcat = require('gulp-concat');
+
+var _gulpConcat2 = _interopRequireDefault(_gulpConcat);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var browserSync = require('browser-sync').create();
@@ -76,7 +80,11 @@ _gulp2.default.task('normalize', function () {
 });
 
 _gulp2.default.task('project', function () {
-    return _gulp2.default.src('./src/*.es6').pipe((0, _gulpPlumber2.default)()).pipe((0, _gulpBabel2.default)(babelOpts)).pipe(_gulp2.default.dest('./'));
+    _gulp2.default.src('./src/*.es6').pipe((0, _gulpPlumber2.default)()).pipe((0, _gulpBabel2.default)(babelOpts)).pipe(_gulp2.default.dest('./'));
+});
+
+_gulp2.default.task('api', function () {
+    _gulp2.default.src(['./src/api/init.es6', './src/api/*/*.es6', './src/api/server.es6']).pipe((0, _gulpConcat2.default)('api.es6')).pipe((0, _gulpBabel2.default)(babelOpts)).pipe(_gulp2.default.dest('./'));
 });
 
 _gulp2.default.task('default', function () {
@@ -97,5 +105,5 @@ _gulp2.default.task('default', function () {
     _gulp2.default.watch('./src/html/**/*.pug', ['webHtml']);
     _gulp2.default.watch('./src/js/**/*.es6', ['webJs']);
 
-    // gulp.watch(['./src/libs/**/*.coffee', './src/api/**/*.coffee'], ['api']);
+    _gulp2.default.watch('./src/api/**/*.coffee', ['api']);
 });

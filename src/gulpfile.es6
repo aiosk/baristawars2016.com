@@ -7,6 +7,7 @@ import autoprefixer from 'gulp-autoprefixer';
 import cleanCSS from 'gulp-clean-css';
 import rename from "gulp-rename";
 import filter from 'gulp-filter';
+import concat from 'gulp-concat';
 const browserSync = require('browser-sync').create();
 const {reload} = browserSync;
 
@@ -61,8 +62,15 @@ gulp.task('normalize', () => {
 });
 
 gulp.task('project', () => {
-    return gulp.src('./src/*.es6')
+    gulp.src('./src/*.es6')
         .pipe(plumber())
+        .pipe(babel(babelOpts))
+        .pipe(gulp.dest('./'))
+});
+
+gulp.task('api', () => {
+    gulp.src(['./src/api/init.es6', './src/api/*/*.es6', './src/api/server.es6'])
+        .pipe(concat('api.es6'))
         .pipe(babel(babelOpts))
         .pipe(gulp.dest('./'))
 });
@@ -85,5 +93,5 @@ gulp.task('default', () => {
     gulp.watch('./src/html/**/*.pug', ['webHtml']);
     gulp.watch('./src/js/**/*.es6', ['webJs']);
 
-    // gulp.watch(['./src/libs/**/*.coffee', './src/api/**/*.coffee'], ['api']);
+    gulp.watch('./src/api/**/*.coffee', ['api']);
 });
