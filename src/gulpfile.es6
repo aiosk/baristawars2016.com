@@ -79,10 +79,10 @@ gulp.task('default', () => {
     browserSync.init(browserSyncOpts);
 
     gulp.watch('./src/*.es6', ['project']);
-    gulp.watch('./src/sass/normalize.scss', ['normalize']);
-    gulp.watch('./src/sass/**/*.scss', ['webCss']);
+    gulp.watch('./src/css/normalize.scss', ['normalize']);
+    gulp.watch('./src/css/**/*.scss', ['webCss']);
 
-    gulp.watch('./src/pug/**/*.pug', ['webHtml']);
+    gulp.watch('./src/html/**/*.pug', ['webHtml']);
     gulp.watch('./src/js/**/*.es6', ['webJs']);
 
     // gulp.watch(['./src/libs/**/*.coffee', './src/api/**/*.coffee'], ['api']);

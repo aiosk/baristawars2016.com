@@ -91,10 +91,10 @@ _gulp2.default.task('default', function () {
     browserSync.init(browserSyncOpts);
 
     _gulp2.default.watch('./src/*.es6', ['project']);
-    _gulp2.default.watch('./src/sass/normalize.scss', ['normalize']);
-    _gulp2.default.watch('./src/sass/**/*.scss', ['webCss']);
+    _gulp2.default.watch('./src/css/normalize.scss', ['normalize']);
+    _gulp2.default.watch('./src/css/**/*.scss', ['webCss']);
 
-    _gulp2.default.watch('./src/pug/**/*.pug', ['webHtml']);
+    _gulp2.default.watch('./src/html/**/*.pug', ['webHtml']);
     _gulp2.default.watch('./src/js/**/*.es6', ['webJs']);
 
     // gulp.watch(['./src/libs/**/*.coffee', './src/api/**/*.coffee'], ['api']);
