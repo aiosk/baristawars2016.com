@@ -1,0 +1,13 @@
+html,body{
+  font-family: 'Source Sans Pro', sans-serif;
+}
+
+body > *{
+  &:nth-child(odd){
+    background-color: #eee;
+  }
+  padding: 1rem;
+}
+h4{
+  text-transform: uppercase;
+}

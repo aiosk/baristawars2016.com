@@ -3,7 +3,7 @@ import Hapi from 'hapi';
 const server = new Hapi.Server();
 
 server.connection({
-    port: 3000,
+    port: 3500,
     routes: {
         cors: true
     }
