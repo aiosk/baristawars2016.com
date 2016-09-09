@@ -16,7 +16,9 @@ const babelOpts = {presets: ['es2015'], compact: false};
 
 gulp.task('webHtml', () => {
     const pugOpts = {
-        data: {},
+        data: {
+            urlBase: 'http://localhost:3500'
+        },
         pretty: true,
         compileDebug: true
     };
@@ -25,6 +27,7 @@ gulp.task('webHtml', () => {
         .pipe(plumber())
         .pipe(pug(pugOpts))
         .pipe(gulp.dest('./dist/'))
+        .pipe(browserSync.stream());
 });
 
 gulp.task('webCss', () => {
@@ -48,7 +51,8 @@ gulp.task('webJs', () => {
     gulp.src('./src/js/**/*.es6')
         .pipe(plumber())
         .pipe(babel(babelOpts))
-        .pipe(gulp.dest('./dist/js/'));
+        .pipe(gulp.dest('./dist/js/'))
+        .pipe(browserSync.stream());
 });
 
 gulp.task('normalize', () => {

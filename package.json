@@ -21,6 +21,7 @@
     "gulp-pug": "^3.0.4",
     "gulp-rename": "^1.2.2",
     "gulp-sass": "^2.3.2",
+    "jstransformer-babel": "^2.1.0",
     "sass-bem": "^2.5.3"
   },
   "scripts": {

@@ -50,13 +50,15 @@ var babelOpts = { presets: ['es2015'], compact: false };
 
 _gulp2.default.task('webHtml', function () {
     var pugOpts = {
-        data: {},
+        data: {
+            urlBase: 'http://localhost:3500'
+        },
         pretty: true,
         compileDebug: true
     };
     _gulp2.default.src('./src/html/**/*.pug').pipe((0, _gulpFilter2.default)(function (file) {
         return !/\/_/.test(file.path) && !/^_/.test(file.relative);
-    })).pipe((0, _gulpPlumber2.default)()).pipe((0, _gulpPug2.default)(pugOpts)).pipe(_gulp2.default.dest('./dist/'));
+    })).pipe((0, _gulpPlumber2.default)()).pipe((0, _gulpPug2.default)(pugOpts)).pipe(_gulp2.default.dest('./dist/')).pipe(browserSync.stream());
 });
 
 _gulp2.default.task('webCss', function () {
@@ -70,7 +72,7 @@ _gulp2.default.task('webCss', function () {
 
 _gulp2.default.task('webJs', function () {
 
-    _gulp2.default.src('./src/js/**/*.es6').pipe((0, _gulpPlumber2.default)()).pipe((0, _gulpBabel2.default)(babelOpts)).pipe(_gulp2.default.dest('./dist/js/'));
+    _gulp2.default.src('./src/js/**/*.es6').pipe((0, _gulpPlumber2.default)()).pipe((0, _gulpBabel2.default)(babelOpts)).pipe(_gulp2.default.dest('./dist/js/')).pipe(browserSync.stream());
 });
 
 _gulp2.default.task('normalize', function () {
