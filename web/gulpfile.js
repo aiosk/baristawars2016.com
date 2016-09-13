@@ -85,10 +85,6 @@ _gulp2.default.task('project', function () {
     _gulp2.default.src('./src/*.es6').pipe((0, _gulpPlumber2.default)()).pipe((0, _gulpBabel2.default)(babelOpts)).pipe(_gulp2.default.dest('./'));
 });
 
-_gulp2.default.task('api', function () {
-    _gulp2.default.src(['./src/api/init.es6', './src/api/*/*.es6', './src/api/server.es6']).pipe((0, _gulpConcat2.default)('api.es6')).pipe((0, _gulpBabel2.default)(babelOpts)).pipe(_gulp2.default.dest('./'));
-});
-
 _gulp2.default.task('default', function () {
     var browserSyncOpts = {
         server: 'dist/',
@@ -106,6 +102,4 @@ _gulp2.default.task('default', function () {
 
     _gulp2.default.watch('./src/html/**/*.pug', ['webHtml']);
     _gulp2.default.watch('./src/js/**/*.es6', ['webJs']);
-
-    _gulp2.default.watch('./src/api/**/*.coffee', ['api']);
 });

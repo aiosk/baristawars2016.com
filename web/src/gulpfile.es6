@@ -16,9 +16,7 @@ const babelOpts = {presets: ['es2015'], compact: false};
 
 gulp.task('webHtml', () => {
     const pugOpts = {
-        data: {
-            urlBase: 'http://localhost:3500'
-        },
+        data: {},
         pretty: true,
         compileDebug: true
     };
@@ -72,13 +70,6 @@ gulp.task('project', () => {
         .pipe(gulp.dest('./'))
 });
 
-gulp.task('api', () => {
-    gulp.src(['./src/api/init.es6', './src/api/*/*.es6', './src/api/server.es6'])
-        .pipe(concat('api.es6'))
-        .pipe(babel(babelOpts))
-        .pipe(gulp.dest('./'))
-});
-
 gulp.task('default', () => {
     const browserSyncOpts = {
         server: 'dist/',
@@ -96,6 +87,4 @@ gulp.task('default', () => {
 
     gulp.watch('./src/html/**/*.pug', ['webHtml']);
     gulp.watch('./src/js/**/*.es6', ['webJs']);
-
-    gulp.watch('./src/api/**/*.coffee', ['api']);
 });
