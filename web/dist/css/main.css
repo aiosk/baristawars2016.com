@@ -794,51 +794,52 @@ h4 {
     background-color: #1583cc;
     color: #fefefe; }
 
-.form__upload {
-  display: inline-block; }
-  .form__upload span {
-    display: inline-block;
-    text-align: center;
-    line-height: 1;
-    cursor: pointer;
-    -webkit-appearance: none;
-    -webkit-transition: background-color 0.25s ease-out, color 0.25s ease-out;
-    -moz-transition: background-color 0.25s ease-out, color 0.25s ease-out;
-    transition: background-color 0.25s ease-out, color 0.25s ease-out;
-    vertical-align: middle;
-    border: 1px solid transparent;
-    border-radius: 0;
-    padding: 0.85em 1em;
-    margin: 0 0 1rem 0;
-    font-size: 0.9rem;
-    background-color: #2199e8;
-    color: #fefefe;
-    border: 1px solid #2199e8;
-    color: #2199e8;
-    font-size: .8rem;
-    text-transform: uppercase; }
-    [data-whatinput='mouse'] .form__upload span {
-      outline: 0; }
-    .form__upload span:hover, .form__upload span:focus {
-      background-color: #1583cc;
-      color: #fefefe; }
-    .form__upload span, .form__upload span:hover, .form__upload span:focus {
-      background-color: transparent; }
-    .form__upload span:hover, .form__upload span:focus {
-      border-color: #0c4d78;
-      color: #0c4d78; }
-  .form__upload input {
-    position: absolute !important;
-    width: 1px;
-    height: 1px;
-    overflow: hidden;
-    clip: rect(0, 0, 0, 0); }
+.form__upload span {
+  display: inline-block;
+  text-align: center;
+  line-height: 1;
+  cursor: pointer;
+  -webkit-appearance: none;
+  -webkit-transition: background-color 0.25s ease-out, color 0.25s ease-out;
+  -moz-transition: background-color 0.25s ease-out, color 0.25s ease-out;
+  transition: background-color 0.25s ease-out, color 0.25s ease-out;
+  vertical-align: middle;
+  border: 1px solid transparent;
+  border-radius: 0;
+  padding: 0.85em 1em;
+  margin: 0 0 1rem 0;
+  font-size: 0.9rem;
+  background-color: #2199e8;
+  color: #fefefe;
+  border: 1px solid #2199e8;
+  color: #2199e8;
+  font-size: .8rem;
+  text-transform: uppercase; }
+  [data-whatinput='mouse'] .form__upload span {
+    outline: 0; }
+  .form__upload span:hover, .form__upload span:focus {
+    background-color: #1583cc;
+    color: #fefefe; }
+  .form__upload span, .form__upload span:hover, .form__upload span:focus {
+    background-color: transparent; }
+  .form__upload span:hover, .form__upload span:focus {
+    border-color: #0c4d78;
+    color: #0c4d78; }
+
+.form__upload input {
+  position: absolute !important;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0); }
 
 .menu {
   position: fixed;
   top: 0;
   left: 0;
-  z-index: 70; }
+  z-index: 70;
+  background-color: #ddd;
+  width: 100%; }
   .menu ul {
     margin: 0;
     list-style-type: none; }

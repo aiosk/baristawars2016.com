@@ -1,32 +1,11 @@
-// const isProd = window.location.hostname !== '192.168.2.50' && window.location.hostname !== 'localhost';
-const isProd = true;
+const isProd = window.location.hostname !== '192.168.2.50' && window.location.hostname !== 'localhost';
+// const isProd = true;
 
-let urlBase = 'localhost:3500';
+let urlBase = 'localhost:8080';
 if (isProd) {
-    urlBase = 'localhost:8080'
+    urlBase = 'api.baristawars2016.com'
 }
 urlBase = `http://${urlBase}`;
-
-const formImagePreviewOnChange = (e)=> {
-    const $this = $(e.target);
-    const $parent = $this.closest('.form__field');
-    const input = $this[0];
-
-    if (input.files && input.files[0]) {
-        var reader = new FileReader();
-
-        reader.onload = function (e) {
-            let $img = $parent.find('img.form__upload-image');
-            if ($img.length === 0) {
-                $parent.prepend('<img class="form__upload-image"/>');
-                $img = $parent.find('img')
-            }
-            $img.attr('src', e.target.result);
-        };
-
-        reader.readAsDataURL(input.files[0]);
-    }
-};
 
 class FormTemplate {
     static notOpen() {
@@ -34,7 +13,7 @@ class FormTemplate {
     }
 
     static open() {
-        return `<form method="POST" action="/registration" id="form_registration" data-parsley-validate enctype="multipart/form-data">
+        return `<form method="POST" action="/registration" id="form_registration" data-parsley-validate enctype="multipart/form-data"> 
     <div class="form__row">
       <div class="form__label form--required">
         <label for="register_name">name</label>
@@ -107,10 +86,80 @@ $(()=> {
         let isTime = false;
         const element = $('#section6 .fp-tableCell');
         let html;
+        const complete = ()=> {
+            if (!isTime) {
+                return false;
+            }
+
+            element.append(html);
+
+            $("#register_dob").datepicker({
+                changeMonth: true,
+                changeYear: true,
+                minDate: '-80y',
+                maxDate: '-5y',
+                yearRange: "-100:-5",
+                onClose(dateText, inst){
+                    const $this = inst.input;
+                    console.log($this);
+                    $this.trigger('leave');
+                }
+            });
+
+            $('#register_picture').on('change', (e)=> {
+                const $this = $(e.target);
+                const $parent = $this.closest('.form__field');
+                const input = $this[0];
+
+                if (input.files && input.files[0]) {
+                    var reader = new FileReader();
+
+                    reader.onload = function (e) {
+                        let $img = $parent.find('img.form__upload-image');
+                        if ($img.length === 0) {
+                            $parent.prepend('<img class="form__upload-image"/>');
+                            $img = $parent.find('img')
+                        }
+                        $img.attr('src', e.target.result);
+                    };
+
+                    reader.readAsDataURL(input.files[0]);
+                }
+            });
+
+            $("#form_registration").on('submit', (e)=> {
+                e.preventDefault();
+                const $this = $(e.target);
+                const formData = new FormData($this[0]);
+
+                $.ajax({
+                    url: `${urlBase}${$this.attr('action')}`,
+                    type: $this.attr('method'),
+                    data: formData,
+                    //async: false,
+                    success: function (data) {
+                        if (data.status === false) {
+                            alert(data.message)
+                        }
+                    },
+                    cache: false,
+                    contentType: false,
+                    processData: false
+                });
+
+                return false;
+            });
+
+            element.removeClass('spinner')
+                .find('form').parsley();
+
+        };
+
         $.ajax({
             url: `${urlBase}/helper/time`,
             beforeSend(){
-                element.addClass('spinner');
+                element.addClass('spinner')
+                    .find('form').remove();
             },
             success(data){
                 data = JSON.parse(data);
@@ -121,50 +170,8 @@ $(()=> {
                 } else {
                     html = FormTemplate.notOpen()
                 }
-                element.find('form').remove()
             },
-            complete(){
-                if (!isTime) {
-                    return false;
-                }
-
-                element.append(html);
-
-                $("#register_dob").datepicker({
-                    changeMonth: true,
-                    changeYear: true,
-                    minDate: '-80y',
-                    maxDate: '-5y',
-                    yearRange: "-100:-5"
-                });
-
-                $('#register_picture').on('change', formImagePreviewOnChange);
-
-                $("#form_registration").on('submit', (e)=> {
-                    e.preventDefault();
-                    const $this = $(e.target);
-                    const formData = new FormData($this[0]);
-
-                    $.ajax({
-                        url: `${urlBase}${$this.attr('action')}`,
-                        type: $this.attr('method'),
-                        data: formData,
-                        //async: false,
-                        success: function (data) {
-                            if (data.status === false) {
-                                alert(data.message)
-                            }
-                        },
-                        cache: false,
-                        contentType: false,
-                        processData: false
-                    });
-
-                    return false;
-                });
-
-                element.removeClass('spinner');
-            }
+            complete
         });
     };
 

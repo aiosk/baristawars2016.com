@@ -3,6 +3,9 @@
   top: 0;
   left: 0;
   z-index: 70;
+  background-color: #ddd;
+  width: 100%;
+
   ul {
     @include menu-base;
     //@include menu-direction('vertical');
@@ -17,7 +20,7 @@
   }
   li {
     @include breakpoint(small down) {
-      @include grid-col(6,0);
+      @include grid-col(6, 0);
     }
     &.active {
       background: map-get($foundation-palette, primary);

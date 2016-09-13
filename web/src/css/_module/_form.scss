@@ -58,8 +58,6 @@
 
 .form {
   @include e('upload') {
-    display: inline-block;
-
     span {
       @include button;
       @include button-hollow;
