@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro">
     <link rel="stylesheet" href="css/main.css">
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.0/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullPage.js/2.8.6/jquery.fullPage.min.css">
     <script src="js/vendor/modernizr-2.8.3.min.js"></script>
   </head>
   <body>
@@ -24,119 +25,46 @@
       |  to improve your experience.
     -->
     <!-- Add your site or application content here-->
-    <header>
-      <h4>header (logo)</h4>
-    </header>
-    <section class="menu">
-      <h4>menu</h4>
-    </section>
-    <section>
-      <h4>other information</h4>
-    </section>
-    <section id="registration">
-      <h4>registration</h4>
-      <form method="POST" action="http://localhost:3500/registration" id="form_registration" data-parsley-validate>
-        <div class="form__row">
-          <div class="form__label form--required">
-            <label for="register_name">name</label>
-          </div>
-          <div class="form__field">
-            <input type="text" name="name" id="register_name" required>
-          </div>
-        </div>
-        <div class="form__row">
-          <div class="form__label form--required">
-            <label for="register_email">email</label>
-          </div>
-          <div class="form__field">
-            <input type="email" name="email" id="register_email" required>
-          </div>
-        </div>
-        <div class="form__row">
-          <div class="form__label form--required">
-            <label for="register_dob">dob</label>
-          </div>
-          <div class="form__field">
-            <input type="text" name="dob" id="register_dob" required>
-          </div>
-        </div>
-        <div class="form__row">
-          <div class="form__label form--required">
-            <label>picture</label>
-          </div>
-          <div class="form__field">
-            <label class="form__upload" for="register_picture"><span>upload</span>
-              <input type="file" name="picture" id="register_picture" required accept="image/*">
-            </label>
-          </div>
-        </div>
-        <div class="form__row">
-          <div class="form__label">
-            <label for="register_address">address</label>
-          </div>
-          <div class="form__field">
-            <textarea name="address" id="register_address"></textarea>
-          </div>
-        </div>
-        <div class="form__row">
-          <div class="form__label">
-            <label for="register_coffeeshop">coffeeshop</label>
-          </div>
-          <div class="form__field">
-            <input type="text" name="coffeeshop" id="register_coffeeshop">
-          </div>
-        </div>
-        <div class="form__row">
-          <div class="form__button">
-            <button type="submit">submit</button>
-          </div>
-        </div>
-      </form>
-    </section>
-    <footer>
-      <h4>footer</h4>
-    </footer>
+    <nav class="menu">
+      <ul>
+        <li class="active" data-menuanchor="sponsor"><a href="#sponsor">sponsor</a></li>
+        <li data-menuanchor="challengers"><a href="#challengers">challengers</a></li>
+        <li data-menuanchor="rules"><a href="#rules">the rules</a></li>
+        <li data-menuanchor="schedule"><a href="#schedule">schedule</a></li>
+        <li data-menuanchor="venue"><a href="#venue">venue</a></li>
+        <li data-menuanchor="registration"><a href="#registration">registration</a></li>
+      </ul>
+    </nav>
+    <div class="fullpage" id="fullpage">
+      <div class="section" id="section1">sponsor</div>
+      <div class="section" id="section2">challengers</div>
+      <div class="section" id="section3">the rules</div>
+      <div class="section" id="section4">schedule</div>
+      <div class="section" id="section5">venue</div>
+      <div class="section" id="section6">
+        <h4>Registration</h4>
+      </div>
+    </div>
+    <!--header-->
+    <!--    h4 header (logo)-->
+    <!--section-->
+    <!--    h4 other information-->
+    <!--section#registration-->
+    <!--    h4 registration-->
+    <!--footer-->
+    <!--    h4 footer-->
     <script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
     <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.15.0/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fullPage.js/2.8.6/vendors/jquery.easings.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fullPage.js/2.8.6/vendors/scrolloverflow.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fullPage.js/2.8.6/jquery.fullPage.min.js"></script>
     <!--script(src='https://cdnjs.cloudflare.com/ajax/libs/axios/0.14.0/axios.min.js')-->
     <!--script(src='https://cdnjs.cloudflare.com/ajax/libs/blueimp-file-upload/9.12.5/js/jquery.fileupload.min.js')-->
     <script src="http://parsleyjs.org/dist/parsley.min.js"></script>
     <script src="js/plugins.js"></script>
     <script src="js/main.js"></script>
-    <script>'use strict';
-
-$(function () {
-    $("#register_dob").datepicker({
-        changeMonth: true,
-        changeYear: true,
-        minDate: '-80y',
-        maxDate: '-5y',
-        yearRange: "-100:-5"
-
-    });
-
-    $('#register_picture').on('change', formImagePreviewOnChange);
-    $("#form_registration").on('submit', function (e) {
-        e.preventDefault();
-        var $this = $(e.target);
-        var formData = new FormData($this[0]);
-
-        $.ajax({
-            url: $this.attr('action'),
-            type: 'POST',
-            data: formData,
-            //async: false,
-            success: function success(data) {
-                alert(data);
-            },
-            cache: false,
-            contentType: false,
-            processData: false
-        });
-
-        return false;
-    });
-});
+    <script>"use strict";
     </script>
     <!-- Google Analytics: change UA-XXXXX-X to be your site's ID.-->
     <!-- script.-->

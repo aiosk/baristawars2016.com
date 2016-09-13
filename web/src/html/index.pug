@@ -1,92 +1,44 @@
 extends _layout/_master.pug
 block body-css
     link(rel='stylesheet', href='https://code.jquery.com/ui/1.12.0/themes/base/jquery-ui.css')
+    link(rel='stylesheet', href='https://cdnjs.cloudflare.com/ajax/libs/fullPage.js/2.8.6/jquery.fullPage.min.css')
 
 block body-js
     script(src='https://code.jquery.com/ui/1.12.0/jquery-ui.min.js')
+    script(src='https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.15.0/moment.min.js')
+
+    script(src='https://cdnjs.cloudflare.com/ajax/libs/fullPage.js/2.8.6/vendors/jquery.easings.min.js')
+    script(src='https://cdnjs.cloudflare.com/ajax/libs/fullPage.js/2.8.6/vendors/scrolloverflow.min.js')
+    script(src='https://cdnjs.cloudflare.com/ajax/libs/fullPage.js/2.8.6/jquery.fullPage.min.js')
     //script(src='https://cdnjs.cloudflare.com/ajax/libs/axios/0.14.0/axios.min.js')
     //script(src='https://cdnjs.cloudflare.com/ajax/libs/blueimp-file-upload/9.12.5/js/jquery.fileupload.min.js')
     script(src='http://parsleyjs.org/dist/parsley.min.js')
 
 block body-script
     :babel(presets=['es2015'])
-        $(()=>{
-            $( "#register_dob" ).datepicker({
-                changeMonth:true,
-                changeYear:true,
-                minDate:'-80y',
-                maxDate:'-5y',
-                yearRange: "-100:-5",
-
-            });
-
-            $('#register_picture').on('change',formImagePreviewOnChange)
-            $("#form_registration").on('submit',(e)=>{
-                e.preventDefault();
-                const $this = $(e.target);
-                const formData = new FormData($this[0]);
-
-                $.ajax({
-                    url: $this.attr('action'),
-                    type: 'POST',
-                    data: formData,
-                    //async: false,
-                    success: function (data) {
-                        alert(data)
-                    },
-                    cache: false,
-                    contentType: false,
-                    processData: false
-                });
-
-                return false;
-            });
-        })
 
 block body
-    header
-        h4 header (logo)
-    section.menu
-        h4 menu
-    section
-        h4 other information
-    section#registration
-        h4 registration
-        form(method='POST',action=`${urlBase}/registration`,id='form_registration',data-parsley-validate)
-            .form__row
-                .form__label.form--required
-                    label(for='register_name') name
-                .form__field
-                    input(type='text',name='name',id='register_name',required)
-            .form__row
-                .form__label.form--required
-                    label(for='register_email') email
-                .form__field
-                    input(type='email',name='email',id='register_email',required)
-            .form__row
-                .form__label.form--required
-                    label(for='register_dob') dob
-                .form__field
-                    input(type='text',name='dob',id='register_dob',required)
-            .form__row
-                .form__label.form--required
-                    label picture
-                .form__field
-                    label(for='register_picture').form__upload
-                        span upload
-                        input(type='file',name='picture',id='register_picture',required,accept="image/*")
-            .form__row
-                .form__label
-                    label(for='register_address') address
-                .form__field
-                    textarea(name='address',id='register_address')
-            .form__row
-                .form__label
-                    label(for='register_coffeeshop') coffeeshop
-                .form__field
-                    input(type='text',name='coffeeshop',id='register_coffeeshop')
-            .form__row
-                .form__button
-                    button(type='submit') submit
-    footer
-        h4 footer
+    nav.menu
+        ul
+            li(data-menuanchor='sponsor').active: a(href='#sponsor') sponsor
+            li(data-menuanchor='challengers'): a(href='#challengers') challengers
+            li(data-menuanchor='rules'): a(href='#rules') the rules
+            li(data-menuanchor='schedule'): a(href='#schedule') schedule
+            li(data-menuanchor='venue'): a(href='#venue') venue
+            li(data-menuanchor='registration'): a(href='#registration') registration
+    .fullpage#fullpage
+        .section#section1 sponsor
+        .section#section2 challengers
+        .section#section3 the rules
+        .section#section4 schedule
+        .section#section5 venue
+        .section#section6
+            h4 Registration
+    //header
+    //    h4 header (logo)
+    //section
+    //    h4 other information
+    //section#registration
+    //    h4 registration
+    //footer
+    //    h4 footer

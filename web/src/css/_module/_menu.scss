@@ -1,0 +1,33 @@
+.menu {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 70;
+  ul {
+    @include menu-base;
+    //@include menu-direction('vertical');
+    //@include breakpoint('medium') {
+    //  @include menu-direction('horizontal');
+    //}
+    //@include menu-expand;
+
+    @include breakpoint(small down) {
+      @include grid-row;
+    }
+  }
+  li {
+    @include breakpoint(small down) {
+      @include grid-col(6,0);
+    }
+    &.active {
+      background: map-get($foundation-palette, primary);
+      a {
+        color: $white;
+      }
+    }
+  }
+  a {
+    text-transform: capitalize;
+
+  }
+}

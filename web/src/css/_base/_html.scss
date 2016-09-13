@@ -2,11 +2,17 @@ html,body{
   font-family: 'Source Sans Pro', sans-serif;
 }
 
-body > *{
+.fullpage > *{
   &:nth-child(odd){
     background-color: #eee;
   }
-  padding: 1rem;
+}
+.section{
+  padding: 0 1rem;
+  @include breakpoint('medium'){
+    padding: 0 5rem;
+  }
+
 }
 h4{
   text-transform: uppercase;
