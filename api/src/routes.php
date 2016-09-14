@@ -95,7 +95,34 @@ $app->post('/registration', function ($request, $response) {
     $response->withJson($response_data);
 
     return $response;
-//        ->withHeader('Access-Control-Allow-Origin', '*')
-//        ->withHeader('Access-Control-Allow-Headers', 'X-Requested-With, Content-Type, Accept, Origin, Authorization')
-//        ->withHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+});
+
+$app->get('/participant', function ($request, $response) {
+    $this->logger->info("save registration form");
+
+    $response_data = [
+        'status' => true,
+    ];
+    try {
+        $st = $this->db->prepare("SELECT u.id,email,registration_time,confirm_time,participant_id,
+ud.name,dob,address,picture,
+c.name coffeeshop_name,c.location coffeeshop_location FROM `user` u
+left join user_detail ud on u.id = ud.user_id
+left join coffeeshop c on u.coffee_id = c.id");
+        $st->execute();
+        $participants = $st->fetchAll();
+        $response_data['items'] = $participants;
+        $response_data['total'] = count($participants);
+    } catch (Exception $e) {
+        $response_data = [
+            'status' => false,
+            'message' => $e->getMessage(),
+            'file' => $e->getFile(),
+            'line' => $e->getLine(),
+//            'trace' => $e->getTraceAsString(),
+        ];
+    }
+    $response->withJson($response_data);
+
+    return $response;
 });
