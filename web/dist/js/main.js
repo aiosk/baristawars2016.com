@@ -26,7 +26,7 @@ var FormTemplate = function () {
     }, {
         key: 'open',
         value: function open() {
-            return '<form method="POST" action="/registration" id="form_registration" enctype="multipart/form-data"> \n    <div class="form__row">\n      <div class="form__label form--required">\n        <label for="register_name">name</label>\n      </div>\n      <div class="form__field">\n        <input type="text" name="name" id="register_name" required>\n      </div>\n    </div>\n    <div class="form__row">\n      <div class="form__label form--required">\n        <label for="register_email">email</label>\n      </div>\n      <div class="form__field">\n        <input type="email" name="email" id="register_email" required>\n      </div>\n    </div>\n    <div class="form__row">\n      <div class="form__label form--required">\n        <label for="register_dob">dob</label>\n      </div>\n      <div class="form__field">\n        <input type="text" name="dob" id="register_dob" required>\n      </div>\n    </div>\n    <div class="form__row">\n      <div class="form__label form--required">\n        <label>picture</label>\n      </div>\n      <div class="form__field">\n        <label class="form__upload" for="register_picture"><span>upload</span>\n          <input type="file" name="picture" id="register_picture" accept="image/*">\n        </label>\n      </div>\n    </div>\n    <div class="form__row">\n      <div class="form__label">\n        <label for="register_address">address</label>\n      </div>\n      <div class="form__field">\n        <textarea name="address" id="register_address"></textarea>\n      </div>\n    </div>\n    <div class="form__row">\n      <div class="form__label">\n        <label for="register_coffeeshop">coffeeshop</label>\n      </div>\n      <div class="form__field">\n        <input type="text" name="coffeeshop" id="register_coffeeshop">\n      </div>\n    </div>\n    <div class="form__row">\n      <div class="form__button">\n        <button type="submit">submit</button>\n      </div>\n    </div>\n</form>';
+            return '<form method="POST" action="/registration" id="form_registration" enctype="multipart/form-data"> \n    <div class="form__row">\n      <div class="form__label form--required">\n        <label for="register_name">name</label>\n      </div>\n      <div class="form__field">\n        <input type="text" name="name" id="register_name" required>\n      </div>\n    </div>\n    <div class="form__row">\n      <div class="form__label form--required">\n        <label for="register_email">email</label>\n      </div>\n      <div class="form__field">\n        <input type="email" name="email" id="register_email" required>\n      </div>\n    </div>\n    <div class="form__row">\n      <div class="form__label form--required">\n        <label for="register_dob">dob</label>\n      </div>\n      <div class="form__field">\n        <input type="text" name="dob" id="register_dob" required>\n      </div>\n    </div>\n    <div class="form__row">\n      <div class="form__label form--required">\n        <label>picture</label>\n      </div>\n      <div class="form__field">\n        <label class="form__upload" for="register_picture"><span>upload</span>\n          <input type="file" name="picture" id="register_picture" accept="image/*" required>\n        </label>\n      </div>\n    </div>\n    <div class="form__row">\n      <div class="form__label">\n        <label for="register_address">address</label>\n      </div>\n      <div class="form__field">\n        <textarea name="address" id="register_address"></textarea>\n      </div>\n    </div>\n    <div class="form__row">\n      <div class="form__label">\n        <label for="register_coffeeshop">coffeeshop</label>\n      </div>\n      <div class="form__field">\n        <input type="text" name="coffeeshop" id="register_coffeeshop">\n      </div>\n    </div>\n    <div class="form__row">\n      <div class="form__button">\n        <button type="submit">submit</button>\n      </div>\n    </div>\n</form>';
         }
     }]);
 
@@ -62,6 +62,7 @@ $(function () {
                 minDate: '-80y',
                 maxDate: '-5y',
                 yearRange: "-100:-5",
+                dateFormat: 'yy-mm-dd',
                 onClose: function onClose(dateText, inst) {
                     var $this = inst.input;
                     console.log($this);
@@ -147,9 +148,9 @@ $(function () {
         anchors: ['sponsor', 'challengers', 'rules', 'schedule', 'venue', 'registration'],
         menu: 'nav.menu ul',
         scrollOverflow: true,
-        scrollOverflowOptions: {
-            click: true
-        },
+        // scrollOverflowOptions: {
+        //     click: true
+        // },
         afterLoad: afterLoad
     });
 });

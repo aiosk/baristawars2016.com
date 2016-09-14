@@ -49,43 +49,47 @@ $app->post('/registration', function ($request, $response) {
         'status' => true,
         'message' => 'registration success'
     ];
+    $fileLoc = '';
 
     try {
         $files = $request->getUploadedFiles();
         $picture = $files['picture'];
 
-        $fileLoc = '';
-        if (!empty($picture)) {
+        if (!empty($picture->getClientMediaType())) {
             $fileExt = explode('/', $picture->getClientMediaType())[1];
             $fileLoc = 'uploads/' . uniqid('img_', true) . '.' . $fileExt;
             $picture->moveTo('../' . $fileLoc);
         }
 
-
         $data = $request->getParsedBody();
 
-        $q = 'select count(id) total from user where email=":email")';
-        $st = $this->db->prepare($q)->execute([
-            ':email' => $data['email']
-        ]);
+        $st = $this->db->prepare("select count(id) total from user where email=:email");
+        $st->execute([':email' => $data['email']]);
         $user_exist = $st->fetch();
-        var_dump($user_exist->total);
+        if ((int)$user_exist['total'] == 0) {
 
-        $q = 'insert into user (email) values (:email)';
-        $st = $this->db->prepare($q)->execute([
-            ':email' => $data['email']
-        ]);
+            $st = $this->db->prepare('insert into user (email) values (:email)');
+            $st->execute([':email' => $data['email']]);
 
-        $q = 'insert into user_detail (user_id,name,dob,address,picture) values (:id,:name,:dob,:address,:picture)';
-        $st = $this->db->prepare($q)->execute([
-            ':id' => $this->db->lastInsertId(),
-            ':name' => $data['name'],
-            ':dob' => $data['dob'],
-            ':address' => $data['address'],
-            ':picture' => $fileLoc,
-        ]);;
+            $q = 'insert into user_detail (user_id,name,dob,address,picture) values (:id,:name,:dob,:address,:picture)';
+            $st = $this->db->prepare($q);
+            $st->execute([
+                ':id' => $this->db->lastInsertId(),
+                ':name' => $data['name'],
+                ':dob' => $data['dob'],
+                ':address' => $data['address'],
+                ':picture' => $fileLoc,
+            ]);
+        }
+
     } catch (Exception $e) {
-        var_dump($e);
+        $response_data = [
+            'status' => false,
+            'message' => $e->getMessage(),
+            'file' => $e->getFile(),
+            'line' => $e->getLine(),
+//            'trace' => $e->getTraceAsString(),
+        ];
     }
 
     $response->withJson($response_data);

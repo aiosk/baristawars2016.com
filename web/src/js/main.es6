@@ -44,7 +44,7 @@ class FormTemplate {
       </div>
       <div class="form__field">
         <label class="form__upload" for="register_picture"><span>upload</span>
-          <input type="file" name="picture" id="register_picture" accept="image/*">
+          <input type="file" name="picture" id="register_picture" accept="image/*" required>
         </label>
       </div>
     </div>
@@ -103,6 +103,7 @@ $(()=> {
                 minDate: '-80y',
                 maxDate: '-5y',
                 yearRange: "-100:-5",
+                dateFormat:'yy-mm-dd',
                 onClose(dateText, inst){
                     const $this = inst.input;
                     console.log($this);
@@ -189,9 +190,9 @@ $(()=> {
         anchors: ['sponsor', 'challengers', 'rules', 'schedule', 'venue', 'registration'],
         menu: 'nav.menu ul',
         scrollOverflow: true,
-        scrollOverflowOptions: {
-            click: true
-        },
+        // scrollOverflowOptions: {
+        //     click: true
+        // },
         afterLoad
     });
 });
