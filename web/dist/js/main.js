@@ -26,7 +26,7 @@ var FormTemplate = function () {
     }, {
         key: 'open',
         value: function open() {
-            return '<form method="POST" action="/registration" id="form_registration" data-parsley-validate enctype="multipart/form-data"> \n    <div class="form__row">\n      <div class="form__label form--required">\n        <label for="register_name">name</label>\n      </div>\n      <div class="form__field">\n        <input type="text" name="name" id="register_name" required>\n      </div>\n    </div>\n    <div class="form__row">\n      <div class="form__label form--required">\n        <label for="register_email">email</label>\n      </div>\n      <div class="form__field">\n        <input type="email" name="email" id="register_email" required>\n      </div>\n    </div>\n    <div class="form__row">\n      <div class="form__label form--required">\n        <label for="register_dob">dob</label>\n      </div>\n      <div class="form__field">\n        <input type="text" name="dob" id="register_dob" required>\n      </div>\n    </div>\n    <div class="form__row">\n      <div class="form__label form--required">\n        <label>picture</label>\n      </div>\n      <div class="form__field">\n        <label class="form__upload" for="register_picture"><span>upload</span>\n          <input type="file" name="picture" id="register_picture" accept="image/*" required>\n        </label>\n      </div>\n    </div>\n    <div class="form__row">\n      <div class="form__label">\n        <label for="register_address">address</label>\n      </div>\n      <div class="form__field">\n        <textarea name="address" id="register_address"></textarea>\n      </div>\n    </div>\n    <div class="form__row">\n      <div class="form__label">\n        <label for="register_coffeeshop">coffeeshop</label>\n      </div>\n      <div class="form__field">\n        <input type="text" name="coffeeshop" id="register_coffeeshop">\n      </div>\n    </div>\n    <div class="form__row">\n      <div class="form__button">\n        <button type="submit">submit</button>\n      </div>\n    </div>\n</form>';
+            return '<form method="POST" action="/registration" id="form_registration" enctype="multipart/form-data"> \n    <div class="form__row">\n      <div class="form__label form--required">\n        <label for="register_name">name</label>\n      </div>\n      <div class="form__field">\n        <input type="text" name="name" id="register_name" required>\n      </div>\n    </div>\n    <div class="form__row">\n      <div class="form__label form--required">\n        <label for="register_email">email</label>\n      </div>\n      <div class="form__field">\n        <input type="email" name="email" id="register_email" required>\n      </div>\n    </div>\n    <div class="form__row">\n      <div class="form__label form--required">\n        <label for="register_dob">dob</label>\n      </div>\n      <div class="form__field">\n        <input type="text" name="dob" id="register_dob" required>\n      </div>\n    </div>\n    <div class="form__row">\n      <div class="form__label form--required">\n        <label>picture</label>\n      </div>\n      <div class="form__field">\n        <label class="form__upload" for="register_picture"><span>upload</span>\n          <input type="file" name="picture" id="register_picture" accept="image/*">\n        </label>\n      </div>\n    </div>\n    <div class="form__row">\n      <div class="form__label">\n        <label for="register_address">address</label>\n      </div>\n      <div class="form__field">\n        <textarea name="address" id="register_address"></textarea>\n      </div>\n    </div>\n    <div class="form__row">\n      <div class="form__label">\n        <label for="register_coffeeshop">coffeeshop</label>\n      </div>\n      <div class="form__field">\n        <input type="text" name="coffeeshop" id="register_coffeeshop">\n      </div>\n    </div>\n    <div class="form__row">\n      <div class="form__button">\n        <button type="submit">submit</button>\n      </div>\n    </div>\n</form>';
         }
     }]);
 
@@ -34,19 +34,23 @@ var FormTemplate = function () {
 }();
 
 $(function () {
-    var onLeave = function onLeave(index, nextIndex, direction) {
-        switch (nextIndex) {
+    var afterLoad = function afterLoad(anchorLink, index) {
+        switch (index) {
             case 6:
                 getRegForm();
                 break;
         }
     };
+
     var getRegForm = function getRegForm() {
         var isTime = false;
         var element = $('#section6 .fp-tableCell');
         var html = void 0;
         var complete = function complete() {
             if (!isTime) {
+                return false;
+            }
+            if (element.find('form').length !== 0) {
                 return false;
             }
 
@@ -80,6 +84,7 @@ $(function () {
                             $img = $parent.find('img');
                         }
                         $img.attr('src', e.target.result);
+                        $.fn.fullpage.reBuild();
                     };
 
                     reader.readAsDataURL(input.files[0]);
@@ -89,6 +94,12 @@ $(function () {
             $("#form_registration").on('submit', function (e) {
                 e.preventDefault();
                 var $this = $(e.target);
+
+                // $this.parsley().validate();
+                //
+                // if (!$this.parsley().isValid()) {
+                //     return false
+                // }
                 var formData = new FormData($this[0]);
 
                 $.ajax({
@@ -109,13 +120,13 @@ $(function () {
                 return false;
             });
 
-            element.removeClass('spinner').find('form').parsley();
+            element.removeClass('spinner');
         };
 
         $.ajax({
             url: urlBase + '/helper/time',
             beforeSend: function beforeSend() {
-                element.addClass('spinner').find('form').remove();
+                element.addClass('spinner');
             },
             success: function success(data) {
                 data = JSON.parse(data);
@@ -135,6 +146,10 @@ $(function () {
     $('#fullpage').fullpage({
         anchors: ['sponsor', 'challengers', 'rules', 'schedule', 'venue', 'registration'],
         menu: 'nav.menu ul',
-        onLeave: onLeave
+        scrollOverflow: true,
+        scrollOverflowOptions: {
+            click: true
+        },
+        afterLoad: afterLoad
     });
 });

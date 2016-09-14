@@ -13,7 +13,7 @@ class FormTemplate {
     }
 
     static open() {
-        return `<form method="POST" action="/registration" id="form_registration" data-parsley-validate enctype="multipart/form-data"> 
+        return `<form method="POST" action="/registration" id="form_registration" enctype="multipart/form-data"> 
     <div class="form__row">
       <div class="form__label form--required">
         <label for="register_name">name</label>
@@ -44,7 +44,7 @@ class FormTemplate {
       </div>
       <div class="form__field">
         <label class="form__upload" for="register_picture"><span>upload</span>
-          <input type="file" name="picture" id="register_picture" accept="image/*" required>
+          <input type="file" name="picture" id="register_picture" accept="image/*">
         </label>
       </div>
     </div>
@@ -75,19 +75,23 @@ class FormTemplate {
 
 
 $(()=> {
-    const onLeave = (index, nextIndex, direction) => {
-        switch (nextIndex) {
+    const afterLoad = (anchorLink, index) => {
+        switch (index) {
             case 6:
                 getRegForm();
                 break;
         }
     };
+
     const getRegForm = () => {
         let isTime = false;
         const element = $('#section6 .fp-tableCell');
         let html;
         const complete = ()=> {
             if (!isTime) {
+                return false;
+            }
+            if (element.find('form').length !== 0) {
                 return false;
             }
 
@@ -121,45 +125,51 @@ $(()=> {
                             $img = $parent.find('img')
                         }
                         $img.attr('src', e.target.result);
+                        $.fn.fullpage.reBuild();
                     };
 
                     reader.readAsDataURL(input.files[0]);
                 }
             });
 
-            $("#form_registration").on('submit', (e)=> {
-                e.preventDefault();
-                const $this = $(e.target);
-                const formData = new FormData($this[0]);
+            $("#form_registration")
+                .on('submit', (e)=> {
+                    e.preventDefault();
+                    const $this = $(e.target);
 
-                $.ajax({
-                    url: `${urlBase}${$this.attr('action')}`,
-                    type: $this.attr('method'),
-                    data: formData,
-                    //async: false,
-                    success: function (data) {
-                        if (data.status === false) {
-                            alert(data.message)
-                        }
-                    },
-                    cache: false,
-                    contentType: false,
-                    processData: false
+                    // $this.parsley().validate();
+                    //
+                    // if (!$this.parsley().isValid()) {
+                    //     return false
+                    // }
+                    const formData = new FormData($this[0]);
+
+                    $.ajax({
+                        url: `${urlBase}${$this.attr('action')}`,
+                        type: $this.attr('method'),
+                        data: formData,
+                        //async: false,
+                        success: function (data) {
+                            if (data.status === false) {
+                                alert(data.message)
+                            }
+                        },
+                        cache: false,
+                        contentType: false,
+                        processData: false
+                    });
+
+                    return false;
                 });
 
-                return false;
-            });
-
-            element.removeClass('spinner')
-                .find('form').parsley();
+            element.removeClass('spinner');
 
         };
 
         $.ajax({
             url: `${urlBase}/helper/time`,
             beforeSend(){
-                element.addClass('spinner')
-                    .find('form').remove();
+                element.addClass('spinner');
             },
             success(data){
                 data = JSON.parse(data);
@@ -178,6 +188,10 @@ $(()=> {
     $('#fullpage').fullpage({
         anchors: ['sponsor', 'challengers', 'rules', 'schedule', 'venue', 'registration'],
         menu: 'nav.menu ul',
-        onLeave
+        scrollOverflow: true,
+        scrollOverflowOptions: {
+            click: true
+        },
+        afterLoad
     });
 });
