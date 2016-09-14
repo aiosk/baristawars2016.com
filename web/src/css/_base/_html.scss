@@ -1,19 +1,21 @@
-html,body{
+html, body {
   font-family: 'Source Sans Pro', sans-serif;
 }
 
-.fullpage > *{
-  &:nth-child(odd){
+.fullpage > * {
+  &:nth-child(odd) {
     background-color: #eee;
   }
 }
-.section{
+
+.section {
   padding: 0 1rem;
-  @include breakpoint('medium'){
-    padding: 0 5rem;
+  @include breakpoint('medium') {
+    padding: 0 2rem;
   }
 
 }
-h4{
+
+h4 {
   text-transform: uppercase;
 }

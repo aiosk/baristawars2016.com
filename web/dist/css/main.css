@@ -725,7 +725,7 @@ html, body {
   padding: 0 1rem; }
   @media screen and (min-width: 40em) {
     .section {
-      padding: 0 5rem; } }
+      padding: 0 2rem; } }
 
 h4 {
   text-transform: uppercase; }
@@ -915,3 +915,9 @@ textarea.parsley-error,
 
 .parsley-errors-list.filled {
   opacity: 1; }
+
+#map {
+  height: 500px; }
+
+#register_coffeeshop {
+  height: auto; }
