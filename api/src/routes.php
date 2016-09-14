@@ -58,7 +58,7 @@ $app->post('/registration', function ($request, $response) {
         if (!empty($picture->getClientMediaType())) {
             $fileExt = explode('/', $picture->getClientMediaType())[1];
             $fileLoc = 'uploads/' . uniqid('img_', true) . '.' . $fileExt;
-            $picture->moveTo('../' . $fileLoc);
+            $picture->moveTo(__DIR__ . '../../' . $fileLoc);
         }
 
         $data = $request->getParsedBody();

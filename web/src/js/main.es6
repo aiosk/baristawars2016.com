@@ -3,7 +3,7 @@ const isProd = window.location.hostname !== '192.168.2.50' && window.location.ho
 
 let urlBase = 'localhost:8080';
 if (isProd) {
-    urlBase = 'api.baristawars2016.com'
+    urlBase = 'api.baristawars2016.com/public'
 }
 urlBase = `http://${urlBase}`;
 
