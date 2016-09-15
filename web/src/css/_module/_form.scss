@@ -1,3 +1,6 @@
+form {
+}
+
 .form {
 
   @include e('row') {
@@ -6,13 +9,11 @@
   }
 
   @include e('label') {
-    @include breakpoint('medium') {
-      //@include grid-col(2);
-    }
     text-transform: capitalize;
 
     @include p('&', '& label') {
       font-size: 11pt;
+      font-weight: bold;
     }
 
     @include while('required') {
@@ -46,12 +47,16 @@
 
   @include e('button') {
     @extend .text-right;
-    button {
+    [type='submit'] {
       @include button;
       @include button-expand;
       //@include button-hollow;
       //@include button-hollow-style;
       text-transform: uppercase;
+
+      &:disabled {
+        @include button-disabled;
+      }
     }
   }
 }

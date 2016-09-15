@@ -9,11 +9,13 @@ html, body {
 }
 
 .section {
-  padding: 0 1rem;
-  @include breakpoint('medium') {
-    padding: 0 2rem;
+  //padding: 1rem;
+  .fp-tableCell > *{
+    padding: 0 1rem;
+    @include breakpoint(medium) {
+      padding: 0 3rem;
+    }
   }
-
 }
 
 h4 {

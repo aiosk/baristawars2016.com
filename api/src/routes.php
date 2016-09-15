@@ -75,6 +75,7 @@ $app->post('/registration', function ($request, $response) {
         $user_exist = $st->fetch();
 
         if ((int)$user_exist['total'] > 0) {
+
             throw new Exception("'" . $data['email'] . "' already registered");
         }
 
@@ -88,7 +89,7 @@ $app->post('/registration', function ($request, $response) {
             }
             $fileExt = explode('/', $picture->getClientMediaType())[1];
             $fileLoc = 'uploads/' . uniqid('img_', true) . '.' . $fileExt;
-            $picture->moveTo(__DIR__ . '../../../' . $fileLoc);
+            $picture->moveTo(__DIR__ . '/../../' . $fileLoc);
         } else {
             throw new Exception("Picture is empty");
         }

@@ -20,7 +20,8 @@
   }
   li {
     @include breakpoint(small down) {
-      @include grid-col(6, 0);
+      @include grid-col(4, 0);
+      font-size: 10pt;
     }
     &.active {
       background: map-get($foundation-palette, primary);

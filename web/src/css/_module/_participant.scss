@@ -1,0 +1,63 @@
+.participants {
+
+  @include grid-row($width:100%);
+  @include grid-layout(2, 'li');
+
+  @include breakpoint(medium) {
+    @include grid-layout(4, 'li');
+  }
+  @include breakpoint(large) {
+    @include grid-layout(6, 'li');
+  }
+  @include breakpoint(xlarge) {
+    @include grid-layout(8, 'li');
+  }
+  li{
+    margin: 0 0 2rem 0;
+  }
+  list-style: none;
+}
+
+.participant {
+  @include p('e:name', 'e:email') {
+    text-align: center;
+    font-weight: bold;
+  }
+  @include e('name') {
+
+  }
+  @include e('email') {
+    font-size: 8pt;
+
+  }
+  @include e('picture') {
+
+    .image {
+      margin: 0 auto;
+
+      border-radius: 50%;
+      overflow: hidden;
+      border: 3px solid #ccc;
+      $dim: 140px;
+      width: $dim;
+      height: $dim;
+      position: relative;
+    }
+    img {
+      position: absolute;
+      $pos: -99px;
+      top: $pos;
+      right: $pos;
+      bottom: $pos;
+      left: $pos;
+      margin: auto;
+    }
+  }
+}
+
+.img {
+  @include m('landscape') {
+    height: 100%;
+    max-width: 999%;
+  }
+}

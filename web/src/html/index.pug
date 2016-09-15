@@ -5,11 +5,11 @@ block body-css
 
 block body-js
     script(src='https://code.jquery.com/ui/1.12.0/jquery-ui.min.js')
-    script(src='https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.15.0/moment.min.js')
+    //script(src='https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.15.0/moment.min.js')
 
     script(src='https://cdnjs.cloudflare.com/ajax/libs/fullPage.js/2.8.6/vendors/jquery.easings.min.js')
     script(src='https://cdnjs.cloudflare.com/ajax/libs/fullPage.js/2.8.6/vendors/scrolloverflow.min.js')
-    script(src='https://cdnjs.cloudflare.com/ajax/libs/fullPage.js/2.8.6/jquery.fullPage.min.js')
+    script(src='https://cdnjs.cloudflare.com/ajax/libs/fullPage.js/2.8.6/jquery.fullPage.js')
     //script(src='https://cdnjs.cloudflare.com/ajax/libs/axios/0.14.0/axios.min.js')
     //script(src='https://cdnjs.cloudflare.com/ajax/libs/blueimp-file-upload/9.12.5/js/jquery.fileupload.min.js')
     //script(src='https://cdnjs.cloudflare.com/ajax/libs/parsley.js/2.4.4/parsley.min.js')
@@ -19,14 +19,14 @@ block body-script
     :babel(presets=['es2015'])
 
 block body
-    nav.menu
-        ul
-            li(data-menuanchor='sponsor').active: a(href='#sponsor') sponsor
-            li(data-menuanchor='challengers'): a(href='#challengers') challengers
-            li(data-menuanchor='rules'): a(href='#rules') the rules
-            li(data-menuanchor='schedule'): a(href='#schedule') schedule
-            li(data-menuanchor='venue'): a(href='#venue') venue
-            li(data-menuanchor='registration'): a(href='#registration') registration
+    //nav.menu
+    //    ul
+    //        li(data-menuanchor='sponsor').active: a(href='#sponsor') sponsor
+    //        li(data-menuanchor='challengers'): a(href='#challengers') challengers
+    //        li(data-menuanchor='rules'): a(href='#rules') the rules
+    //        li(data-menuanchor='schedule'): a(href='#schedule') schedule
+    //        li(data-menuanchor='venue'): a(href='#venue') venue
+    //        li(data-menuanchor='registration'): a(href='#registration') registration
     .fullpage#fullpage
         .section#section1 sponsor
         .section#section2 challengers
@@ -34,7 +34,6 @@ block body
         .section#section4 schedule
         .section#section5 venue
         .section#section6
-            h4 Registration
     //header
     //    h4 header (logo)
     //section
