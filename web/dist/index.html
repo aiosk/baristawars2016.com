@@ -3,17 +3,18 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Civil War</title>
+    <title>Barista Wars 2016</title>
     <meta name="description" content="">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="apple-touch-icon" href="apple-touch-icon.png">
     <!-- Place favicon.ico in the root directory-->
     <link rel="stylesheet" href="css/normalize.min.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://code.getmdl.io/1.2.1/material.indigo-pink.min.css">
     <link rel="stylesheet" href="css/main.css">
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.0/themes/base/jquery-ui.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullPage.js/2.8.6/jquery.fullPage.min.css">
-    <script src="js/vendor/modernizr-2.8.3.min.js"></script>
+    <!--script(src='js/vendor/modernizr-2.8.3.min.js')-->
   </head>
   <body>
     <!--if lt IE 8
@@ -34,12 +35,69 @@
     <!--        li(data-menuanchor='venue'): a(href='#venue') venue-->
     <!--        li(data-menuanchor='registration'): a(href='#registration') registration-->
     <div class="fullpage" id="fullpage">
-      <div class="section" id="section1">sponsor</div>
-      <div class="section" id="section2">challengers</div>
-      <div class="section" id="section3">the rules</div>
-      <div class="section" id="section4">schedule</div>
-      <div class="section" id="section5">venue</div>
-      <div class="section" id="section6"></div>
+      <div class="section" id="section1">
+        <div class="section__sponsor">
+          <ul>
+            <li><a class="icon icon--instagram" href="#"></a></li>
+          </ul>
+        </div>
+        <div class="section__hashtag">
+          <h1>#indonesiabaristawars2016</h1>
+        </div>
+        <div class="section__button"><a class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" href="#registration">start the war</a></div>
+      </div>
+      <div class="section" id="section2">
+        <div class="form mdl-card mdl-shadow--2dp">
+          <div class="mdl-progress mdl-js-progress mdl-progress__indeterminate"></div>
+          <div class="mdl-card__title mdl-card--expand">
+            <h3 class="mdl-card__title-text">registration</h3>
+          </div>
+          <div class="mdl-card__supporting-text">
+            <form id="form_registration" method="POST" action="/registration" enctype="multipart/form-data">
+              <div class="mdl-grid">
+                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                  <input class="mdl-textfield__input" id="register_name" type="text" name="name" required>
+                  <label class="mdl-textfield__label" for="register_name">name</label>
+                </div>
+              </div>
+              <div class="mdl-grid">
+                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                  <input class="mdl-textfield__input" id="register_email" type="email" name="email" required>
+                  <label class="mdl-textfield__label" for="register_email">email</label>
+                </div>
+              </div>
+              <div class="mdl-grid">
+                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                  <input class="mdl-textfield__input" id="register_dob" type="text" name="dob" required>
+                  <label class="mdl-textfield__label" for="register_dob">date of birth</label>
+                </div>
+              </div>
+              <div class="mdl-grid">
+                <label class="form__upload" for="register_picture"><span class="mdl-button mdl-js-button mdl-button--accent mdl-js-ripple-effect" style="border:thin solid">choose picture</span>
+                  <input id="register_picture" type="file" name="picture" accept="image/*">
+                </label>
+              </div>
+              <div class="mdl-grid">
+                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                  <label class="mdl-textfield__label" for="register_address">address</label>
+                  <textarea class="mdl-textfield__input" id="register_address" name="address"></textarea>
+                </div>
+              </div>
+              <div class="mdl-grid">
+                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                  <label class="mdl-textfield__label" for="register_coffeeshop">coffeeshop</label>
+                  <div id="map"></div>
+                  <input class="mdl-textfield__input" id="register_coffeeshop" type="text">
+                  <input id="register_coffeeshop_maps" type="hidden" name="coffeeshop_location">
+                </div>
+              </div>
+            </form>
+          </div>
+          <div class="mdl-card__actions mdl-card--border">
+            <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent mdl-js-ripple-effect" type="submit" id="register_submit">submit</button>
+          </div>
+        </div>
+      </div>
     </div>
     <!--header-->
     <!--    h4 header (logo)-->
@@ -50,6 +108,7 @@
     <!--footer-->
     <!--    h4 footer-->
     <script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
+    <script defer src="https://code.getmdl.io/1.2.1/material.min.js"></script>
     <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js"></script>
     <!--script(src='https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.15.0/moment.min.js')-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/fullPage.js/2.8.6/vendors/jquery.easings.min.js"></script>
