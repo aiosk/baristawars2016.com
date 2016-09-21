@@ -3,16 +3,17 @@ html.no-js(lang='')
     head
         meta(charset='utf-8')
         meta(http-equiv='x-ua-compatible', content='ie=edge')
-        title Civil War
+        title Barista Wars 2016
         meta(name='description', content='')
-        meta(name='viewport', content='width=device-width, initial-scale=1')
+        meta(name='viewport', content='width=device-width, initial-scale=1.0')
         link(rel='apple-touch-icon', href='apple-touch-icon.png')
         // Place favicon.ico in the root directory
         link(rel='stylesheet', href='css/normalize.min.css')
-        link(rel='stylesheet', href='https://fonts.googleapis.com/css?family=Source+Sans+Pro')
+        link(rel='stylesheet', href='https://fonts.googleapis.com/icon?family=Material+Icons')
+        link(rel='stylesheet', href='https://code.getmdl.io/1.2.1/material.indigo-pink.min.css')
         link(rel='stylesheet', href='css/main.css')
         block body-css
-        script(src='js/vendor/modernizr-2.8.3.min.js')
+        //script(src='js/vendor/modernizr-2.8.3.min.js')
     body
         //if lt IE 8
           p.browserupgrade
@@ -24,6 +25,7 @@ html.no-js(lang='')
         // Add your site or application content here
         block body
         script(src='https://code.jquery.com/jquery-3.1.0.min.js')
+        script(defer, src='https://code.getmdl.io/1.2.1/material.min.js')
         block body-js
         script(src='js/helper.js')
         script(src='js/plugins.js')

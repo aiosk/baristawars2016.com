@@ -1,23 +1,52 @@
-html, body {
-  font-family: 'Source Sans Pro', sans-serif;
-}
-
-.fullpage > * {
-  &:nth-child(odd) {
-    background-color: #eee;
-  }
-}
-
+//html, body {
+//  font-family: 'Source Sans Pro', sans-serif;
+//}
+//
+//.fullpage > * {
+//  &:nth-child(odd) {
+//    background-color: #eee;
+//  }
+//}
+//
+//.section {
+//  //padding: 1rem;
+//  .fp-tableCell > *{
+//    padding: 0 1rem;
+//    @include breakpoint(medium) {
+//      padding: 0 3rem;
+//    }
+//  }
+//}
+//
+//h4 {
+//  text-transform: uppercase;
+//}
 .section {
-  //padding: 1rem;
-  .fp-tableCell > *{
-    padding: 0 1rem;
-    @include breakpoint(medium) {
-      padding: 0 3rem;
+  @include e('hashtag') {
+    h1 {
+      color: #fff;
+      text-align: center;
+    }
+  }
+  @include e('button') {
+    margin: 4rem 0 0 0;
+    text-align: center;
+    .mdl-button {
+      font-size: 16pt;
+      height: auto;
+      $padding:0.8rem;
+      padding: $padding $padding*2;
     }
   }
 }
 
-h4 {
-  text-transform: uppercase;
+#section1 {
+  background: {
+    image: url('#{$img}/bg.jpg');
+    size: cover;
+  }
+}
+
+#section2 {
+  background: #333;
 }

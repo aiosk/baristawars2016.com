@@ -7,15 +7,6 @@ const delay = (()=> {
         timer = setTimeout(callback, ms)
     }
 })();
-class TemplateParticipant {
-    static get(args) {
-        return `<div class="participant">
-<div class="participant__picture"><div class="image"><img src="${args.picture}" class="img"/></div> </div>
-<div class="participant__name">${args.name}</div>
-<div class="participant__email">${args.email}</div>
-</div>`;
-    }
-}
 class Template {
     static flash(status, text) {
         const className = status ? 'parsley-success-list' : 'parsley-errors-list';
@@ -26,69 +17,82 @@ class Template {
 }
 class TemplateForm {
     static notOpen(date = '') {
-        return `<p>registration will be open on ${date}</p>`
-    }
-
-    static open() {
-        return ` <h4>Registration</h4> 
-<form method="POST" action="/registration" id="form_registration" enctype="multipart/form-data"> 
-    <div class="form__row">
-      <div class="form__label form--required">
-        <label for="register_name">name</label>
-      </div>
-      <div class="form__field">
-        <input type="text" name="name" id="register_name">
-      </div>
-    </div>
-    <div class="form__row">
-      <div class="form__label form--required">
-        <label for="register_email">email</label>
-      </div>
-      <div class="form__field">
-        <input type="email" name="email" id="register_email" >
-      </div>
-    </div>
-    <div class="form__row">
-      <div class="form__label form--required">
-        <label for="register_dob">dob</label>
-      </div>
-      <div class="form__field">
-        <input type="text" name="dob" id="register_dob" >
-      </div>
-    </div>
-    <div class="form__row">
-      <div class="form__label form--required">
-        <label>picture</label>
-      </div>
-      <div class="form__field">
-        <label class="form__upload" for="register_picture"><span>upload</span>
-          <input type="file" name="picture" id="register_picture" accept="image/*" >
-        </label>
-      </div>
-    </div>
-    <div class="form__row">
-      <div class="form__label">
-        <label for="register_address">address</label>
-      </div>
-      <div class="form__field">
-        <textarea name="address" id="register_address"></textarea>
-      </div>
-    </div>
-    <div class="form__row">
-      <div class="form__label">
-        <label for="register_coffeeshop">coffeeshop</label>
-      </div>
-      <div class="form__field">
-        <div id="map"></div>
-        <input type="text" name="" id="register_coffeeshop">
-        <input type="hidden" name="coffeeshop_location" id="register_coffeeshop_maps">
-      </div>
-    </div>
-    <div class="form__row">
-      <div class="form__button">
-        <input type="submit" value="submit"/>
-      </div>
-    </div>
-</form>`
+        return `<p align="center">Open on <br/>${date}</p>`
     }
 }
+
+// init maps
+const initAutocomplete = ()=> {
+    // var map = new google.maps.Map(document.getElementById('map'), {
+    //     center: {lat: -6.187210, lng: 106.487706},
+    //     zoom: 10,
+    //     mapTypeId: 'roadmap'
+    // });
+
+    // Create the search box and link it to the UI element.
+    var input = document.getElementById('register_coffeeshop');
+    var searchBox = new google.maps.places.SearchBox(input);
+
+    // map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+
+    // Bias the SearchBox results towards current map's viewport.
+    // map.addListener('bounds_changed', function () {
+    //     searchBox.setBounds(map.getBounds());
+    // });
+
+    // var markers = [];
+    // Listen for the event fired when the user selects a prediction and retrieve
+    // more details for that place.
+    searchBox.addListener('places_changed', function () {
+        var places = searchBox.getPlaces();
+
+        if (places.length == 0) {
+            return;
+        }
+
+        // Clear out the old markers.
+        // markers.forEach(function (marker) {
+        //     marker.setMap(null);
+        // });
+        // markers = [];
+
+        // For each place, get the icon, name and location.
+        // var bounds = new google.maps.LatLngBounds();
+        places.forEach(function (place) {
+            if (!place.geometry) {
+                console.log("Returned place contains no geometry");
+                return;
+            }
+            var icon = {
+                url: place.icon,
+                size: new google.maps.Size(71, 71),
+                origin: new google.maps.Point(0, 0),
+                anchor: new google.maps.Point(17, 34),
+                scaledSize: new google.maps.Size(25, 25)
+            };
+
+            // Create a marker for each place.
+            console.log(place);
+            $('#register_coffeeshop_maps').val(JSON.stringify({
+                name: place.name,
+                lat: place.geometry.location.lat(),
+                lng: place.geometry.location.lng()
+            }));
+
+            // markers.push(new google.maps.Marker({
+            //     map: map,
+            //     icon: icon,
+            //     title: place.name,
+            //     position: place.geometry.location
+            // }));
+
+            // if (place.geometry.viewport) {
+            //     // Only geocodes have viewport.
+            //     bounds.union(place.geometry.viewport);
+            // } else {
+            //     bounds.extend(place.geometry.location);
+            // }
+        });
+        // map.fitBounds(bounds);
+    });
+};
