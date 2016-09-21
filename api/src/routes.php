@@ -52,21 +52,32 @@ $app->post('/registration', function ($request, $response) {
 
     try {
         $data = $request->getParsedBody();
+		$exceptionElement = null;
 //        var_dump($data);
 
         foreach (['name', 'email'] as $v) {
             $text = ucfirst($v);
-            $data[$v] = filter_var($data[$v], FILTER_SANITIZE_STRING);
+            $data[$v] = filter_var(trim($data[$v]), FILTER_SANITIZE_STRING);
             if (empty($data[$v])) {
+				$exceptionElement = $v;
                 throw new Exception(ucfirst($text) . " is empty");
             }
         }
-
-        if (!$data['email'] = filter_var($data['email'], FILTER_SANITIZE_EMAIL)) {
+		$data['address'] = filter_var(trim($data['address']), FILTER_SANITIZE_STRING);
+		
+        $data['name'] = filter_var(trim($data['name']), FILTER_VALIDATE_REGEXP, array("options" => array("regexp" => "/[\w ]+/")));
+        if (!$data['name']) {
+			$exceptionElement = 'name';
+            throw new Exception("Name is not valid");
+        }
+		$data['email'] = filter_var(trim($data['email']), FILTER_VALIDATE_EMAIL);
+        if (!$data['email']) {
+			$exceptionElement = 'email';
             throw new Exception("Email is not valid");
         }
-        $data['dob'] = filter_var($data['dob'], FILTER_VALIDATE_REGEXP, array("options" => array("regexp" => "/\d{4}\-\d{2}\-\d{2}/")));
+        $data['dob'] = filter_var(trim($data['dob']), FILTER_VALIDATE_REGEXP, array("options" => array("regexp" => "/\d{4}\-\d{2}\-\d{2}/")));
         if (!$data['dob']) {
+			$exceptionElement = 'dob';
             throw new Exception("Date of Birth is not valid");
         }
 
@@ -75,7 +86,6 @@ $app->post('/registration', function ($request, $response) {
         $user_exist = $st->fetch();
 
         if ((int)$user_exist['total'] > 0) {
-
             throw new Exception("'" . $data['email'] . "' already registered");
         }
 
@@ -136,8 +146,9 @@ $app->post('/registration', function ($request, $response) {
         $response_data = [
             'status' => false,
             'message' => $e->getMessage(),
-            'file' => $e->getFile(),
-            'line' => $e->getLine(),
+            'element' => $exceptionElement,
+//            'file' => $e->getFile(),
+//            'line' => $e->getLine(),
 //            'trace' => $e->getTraceAsString(),
         ];
     }
