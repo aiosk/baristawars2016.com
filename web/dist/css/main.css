@@ -4,24 +4,9 @@
  * foundation.zurb.com
  * Licensed under MIT Open Source
  */
-.section__hashtag h1 {
-  color: #fff;
-  text-align: center; }
-
-.section__button {
-  margin: 4rem 0 0 0;
-  text-align: center; }
-  .section__button .mdl-button {
-    font-size: 16pt;
-    height: auto;
-    padding: 0.8rem 1.6rem; }
-
-#section1 {
-  background-image: url("../img/bg.jpg");
-  background-size: cover; }
-
-#section2 {
-  background: #333; }
+html, body {
+  margin: 0;
+  padding: 0; }
 
 .form {
   margin: 0 auto; }
@@ -29,15 +14,101 @@
     .form {
       width: 50%;
       max-width: 700px; } }
-  .form input[type='file'] {
-    position: absolute !important;
-    width: 1px;
-    height: 1px;
-    overflow: hidden;
-    clip: rect(0, 0, 0, 0); }
+  .form label[for='register_picture'] {
+    position: relative; }
+    .form label[for='register_picture'] input[type='file'] {
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 38px;
+      opacity: 0; }
 
 .mdl-textfield {
   width: 100%; }
+
+button[type='submit'] {
+  width: 100%; }
+
+#section1 {
+  background-color: #fff;
+  position: relative; }
+
+#section2 {
+  background: #333; }
+
+.section__sponsor ul {
+  list-style: none;
+  text-align: center;
+  padding: 0; }
+  .section__sponsor ul::before, .section__sponsor ul::after {
+    content: ' ';
+    display: table; }
+  .section__sponsor ul::after {
+    clear: both; }
+
+.section__sponsor li {
+  display: inline-block; }
+
+.section__hashtag {
+  font-size: 10pt;
+  color: #333;
+  text-align: center;
+  font-weight: bold;
+  margin-top: 20%; }
+
+.section__button {
+  margin: 4rem 0 0 0;
+  text-align: center; }
+  .section__button .mdl-button {
+    height: 128px;
+    width: 128px;
+    min-width: 128px; }
+    .section__button .mdl-button img {
+      height: 60%;
+      width: 60%;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      -webkit-transform: translate(-50%, -50%);
+      -moz-transform: translate(-50%, -50%);
+      -ms-transform: translate(-50%, -50%);
+      transform: translate(-50%, -50%);
+      opacity: 0;
+      -webkit-transition: all .5s;
+      -moz-transition: all .5s;
+      transition: all .5s; }
+    .section__button .mdl-button:hover img {
+      opacity: 1; }
+  .section__button p {
+    -webkit-animation: example linear 1.5s;
+    -moz-animation: example linear 1.5s;
+    animation: example linear 1.5s;
+    -webkit-animation-iteration-count: infinite;
+    -moz-animation-iteration-count: infinite;
+    animation-iteration-count: infinite;
+    margin-top: 2rem;
+    text-transform: uppercase;
+    color: #fff;
+    font-weight: bold;
+    font-size: 16pt; }
+
+@-webkit-keyframes example {
+  0% {
+    color: red; }
+  100% {
+    color: yellow; } }
+
+@-moz-keyframes example {
+  0% {
+    color: red; }
+  100% {
+    color: yellow; } }
+
+@keyframes example {
+  0% {
+    color: red; }
+  100% {
+    color: yellow; } }
 
 input.parsley-success,
 select.parsley-success,
@@ -56,6 +127,7 @@ textarea.parsley-error,
   border: 1px solid #EED3D7; }
 
 .parsley-errors-list, .parsley-success-list {
+  width: 100%;
   margin: 2px 0 3px;
   padding: 0;
   list-style-type: none;
@@ -77,7 +149,8 @@ textarea.parsley-error,
   text-transform: capitalize; }
 
 .mdl-progress {
-  margin: 0 auto; }
+  margin: 0 auto;
+  width: 100%; }
 
 .mdl-card__title {
   background-repeat: no-repeat;

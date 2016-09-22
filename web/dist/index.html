@@ -8,43 +8,44 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="apple-touch-icon" href="apple-touch-icon.png">
     <!-- Place favicon.ico in the root directory-->
-    <link rel="stylesheet" href="css/normalize.min.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-    <link rel="stylesheet" href="https://code.getmdl.io/1.2.1/material.indigo-pink.min.css">
-    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" type="text/css" href="css/normalize.min.css">
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Roboto:300,400,500,700">
+    <link rel="stylesheet" type="text/css" href="https://code.getmdl.io/1.2.1/material.indigo-red.min.css">
+    <link rel="stylesheet" type="text/css" href="css/main.css">
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.0/themes/base/jquery-ui.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullPage.js/2.8.6/jquery.fullPage.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+    <!--[if IE]>
+      <style>
+        #section1:before {
+           content: "";
+           position: absolute;
+           height: 100%;
+           width: 100%;
+           background: rgba(10, 36, 54, 0.9); /* THIS IS WHAT EVER OVERLAY COLOUR YOU WANT */
+        }
+      </style>
+    <![endif]-->
     <!--script(src='js/vendor/modernizr-2.8.3.min.js')-->
   </head>
   <body>
-    <!--if lt IE 8
-    p.browserupgrade
-      | You are using an
-      strong outdated
-      |  browser. Please
-      a(href='http://browsehappy.com/') upgrade your browser
-      |  to improve your experience.
-    -->
+    <!--[if IE]>
+    
+    <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href='http://browsehappy.com/'> upgrade your browser</a> to improve your experience.</p>
+    <![endif]-->
     <!-- Add your site or application content here-->
-    <!--nav.menu-->
-    <!--    ul-->
-    <!--        li(data-menuanchor='sponsor').active: a(href='#sponsor') sponsor-->
-    <!--        li(data-menuanchor='challengers'): a(href='#challengers') challengers-->
-    <!--        li(data-menuanchor='rules'): a(href='#rules') the rules-->
-    <!--        li(data-menuanchor='schedule'): a(href='#schedule') schedule-->
-    <!--        li(data-menuanchor='venue'): a(href='#venue') venue-->
-    <!--        li(data-menuanchor='registration'): a(href='#registration') registration-->
     <div class="fullpage" id="fullpage">
-      <div class="section" id="section1">
+      <div class="section fp-noscroll" id="section1">
         <div class="section__sponsor">
           <ul>
-            <li><a class="icon icon--instagram" href="#"></a></li>
+            <li><a class="icon icon--instagram" href="//www.instagram.com/prodigycoffee_id"><i class="fa fa-instagram fa-2x"></i></a></li>
           </ul>
         </div>
-        <div class="section__hashtag">
-          <h1>#indonesiabaristawars2016</h1>
+        <div class="section__button"><a class="mdl-button mdl-js-button mdl-button--fab mdl-button--accent" href="#registration"><img src="img/icon--white.png"></a>
+          <p>start the war</p>
         </div>
-        <div class="section__button"><a class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" href="#registration">start the war</a></div>
+        <div class="section__hashtag">#indonesiabaristawars2016</div>
       </div>
       <div class="section" id="section2">
         <div class="form mdl-card mdl-shadow--2dp">
@@ -73,7 +74,7 @@
                 </div>
               </div>
               <div class="mdl-grid">
-                <label class="form__upload" for="register_picture"><span class="mdl-button mdl-js-button mdl-button--accent mdl-js-ripple-effect" style="border:thin solid">choose picture</span>
+                <label class="form__upload" for="register_picture"><span class="mdl-button mdl-js-button mdl-button--accent" style="border:thin solid">choose picture</span>
                   <input id="register_picture" type="file" name="picture" accept="image/*">
                 </label>
               </div>
@@ -91,11 +92,12 @@
                   <input id="register_coffeeshop_maps" type="hidden" name="coffeeshop_location">
                 </div>
               </div>
+              <div class="mdl-grid">
+                <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent mdl-js-ripple-effect" type="submit" id="register_submit">submit</button>
+              </div>
             </form>
           </div>
-          <div class="mdl-card__actions mdl-card--border">
-            <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent mdl-js-ripple-effect" type="submit" id="register_submit">submit</button>
-          </div>
+          <!--.mdl-card__actions.mdl-card--border-->
         </div>
       </div>
     </div>
@@ -108,12 +110,18 @@
     <!--footer-->
     <!--    h4 footer-->
     <script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
+    <!--script(src='http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js')-->
     <script defer src="https://code.getmdl.io/1.2.1/material.min.js"></script>
+    <!--script(src='https://raw.githubusercontent.com/idevsoftware/js-background-blend-mode/master/blend-mode.js')-->
     <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js"></script>
     <!--script(src='https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.15.0/moment.min.js')-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.js"></script>
+    <!--script(src='js/vendor/fastclick.js')-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/fullPage.js/2.8.6/vendors/jquery.easings.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/fullPage.js/2.8.6/vendors/scrolloverflow.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/fullPage.js/2.8.6/jquery.fullPage.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fullPage.js/2.8.6/vendors/scrolloverflow.js"></script>
+    <!--script(src='js/vendor/scrolloverflow.js')-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fullPage.js/2.8.6/jquery.fullPage.min.js"></script>
+    <script src="https://use.fontawesome.com/34f88ceba9.js"></script>
     <!--script(src='https://cdnjs.cloudflare.com/ajax/libs/axios/0.14.0/axios.min.js')-->
     <!--script(src='https://cdnjs.cloudflare.com/ajax/libs/blueimp-file-upload/9.12.5/js/jquery.fileupload.min.js')-->
     <!--script(src='https://cdnjs.cloudflare.com/ajax/libs/parsley.js/2.4.4/parsley.min.js')-->

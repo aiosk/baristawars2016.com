@@ -1,17 +1,23 @@
 'use strict';
 
 var isProd = window.location.hostname !== '192.168.2.50' && window.location.hostname !== 'localhost';
-// const isProd = true;
+// const isProd = false;
 
-var urlBase = 'localhost:8080';
+var urlBase = '192.168.2.50:8080';
 if (isProd) {
     urlBase = 'api.baristawars2016.com/public';
 }
 urlBase = 'http://' + urlBase;
 
+var fullpageRebuild = function fullpageRebuild() {
+    if ($.fn.fullpage.reBuild != null) {
+        $.fn.fullpage.reBuild();
+    }
+};
+
 var getRegistrationForm = function getRegistrationForm() {
     var isTime = false;
-    var element = $('#section2 .fp-tableCell');
+    var element = $('#section2');
     var html = void 0,
         html2 = void 0;
 
@@ -60,12 +66,10 @@ var getRegistrationForm = function getRegistrationForm() {
                     }
                 });
 
-                $form
-                // .off('change', '#register_dob')
-                // .on('change', '#register_dob', (e)=> {
-                //     console.log($(this))
-                // })
-                .on('change', '#register_picture', function (e) {
+                $form.on('click tap touchstart', 'label[for=register_picture]', function (e) {
+                    var $this = $(e.target);
+                    $('#register_picture').trigger('click tap touchstart');
+                }).on('change', '#register_picture', function (e) {
                     var $this = $(e.target);
                     var $imgEl = $this.closest('.mdl-card').find('.mdl-card__title');
                     var input = $this[0];
@@ -76,7 +80,8 @@ var getRegistrationForm = function getRegistrationForm() {
 
                         reader.onload = function (e) {
                             $imgEl.css('background-image', 'url(' + e.target.result + ')');
-                            $.fn.fullpage.reBuild();
+                            $this.closest('label').find('.mdl-button').text('picture taken');
+                            fullpageRebuild();
                         };
 
                         reader.readAsDataURL(input.files[0]);
@@ -93,8 +98,7 @@ var getRegistrationForm = function getRegistrationForm() {
                     var $this = $(e.target);
 
                     var formData = new FormData($this[0]);
-                    var $buttonContainer = element.find('.mdl-card__supporting-text');
-                    var $buttonSubmit = element.find('.mdl-card__actions button');
+                    var $buttonSubmit = element.find('button[type="submit"]');
 
                     $.ajax({
                         url: '' + urlBase + $this.attr('action'),
@@ -115,9 +119,9 @@ var getRegistrationForm = function getRegistrationForm() {
                             html2 = Template.flash(false, xhr.statusText);
                         },
                         complete: function complete() {
-                            $buttonContainer.append(html2);
-                            $buttonSubmit.attr('disabled', false);
+                            $buttonSubmit.attr('disabled', false).before(html2);
                             element.find('.mdl-progress').hide();
+                            fullpageRebuild();
                         },
 
                         cache: false,
@@ -127,19 +131,24 @@ var getRegistrationForm = function getRegistrationForm() {
 
                     return false;
                 });
-
-                $('body').append('<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBjhGHb81MIdRsBEJhhSSUe78JLGIRhHJA&libraries=places&callback=initAutocomplete"></script>');
+                var scriptSrc = 'https://maps.googleapis.com/maps/api/js?key=AIzaSyBjhGHb81MIdRsBEJhhSSUe78JLGIRhHJA&libraries=places&callback=initAutocomplete';
+                if ($('body').find('script[src="' + scriptSrc + '"]').length === 0) {
+                    $('body').append('<script src="' + scriptSrc + '"></script>');
+                }
                 var f = function f() {
                     $('#register_coffeeshop').removeAttr('placeholder');
                 };
-                delay(f, 500);
-                $.fn.fullpage.reBuild();
+                delay(f, 700);
+                fullpageRebuild();
             }
         }
     });
 };
 
 $(function () {
+    if (typeof FastClick != 'undefined') {
+        FastClick.attach(document.body);
+    }
     var afterLoad = function afterLoad(anchorLink, index) {
         switch (anchorLink) {
             case 'registration':
@@ -148,13 +157,23 @@ $(function () {
         }
     };
 
+    // getRegistrationForm();
+    // $('.section').height($(window).height())
+
     $('#fullpage').fullpage({
         anchors: ['main', 'registration'],
+        // css3: false,
         // menu: 'nav.menu ul',
-        scrollOverflow: true,
-        // scrollOverflowOptions: {
-        //     click: true
-        // },
+        // scrollOverflow: true,
+        responsiveWidth: 500,
+        fitToSection: false,
+        // autoScrolling:false,
+        // scrollBar: true,
+        // scrollOverflow: false,
+        scrollOverflowOptions: {
+
+            tap: true
+        },
         afterLoad: afterLoad
     });
 });
