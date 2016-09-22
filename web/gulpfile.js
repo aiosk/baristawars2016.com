@@ -36,6 +36,10 @@ var _gulpFilter = require('gulp-filter');
 
 var _gulpFilter2 = _interopRequireDefault(_gulpFilter);
 
+var _gulpUglify = require('gulp-uglify');
+
+var _gulpUglify2 = _interopRequireDefault(_gulpUglify);
+
 var _gulpConcat = require('gulp-concat');
 
 var _gulpConcat2 = _interopRequireDefault(_gulpConcat);
@@ -50,10 +54,8 @@ var babelOpts = { presets: ['es2015'], compact: false };
 
 _gulp2.default.task('webHtml', function () {
     var pugOpts = {
-        data: {
-            urlBase: 'http://localhost:3500'
-        },
-        pretty: true,
+        data: {},
+        pretty: false,
         compileDebug: true
     };
     _gulp2.default.src('./src/html/**/*.pug').pipe((0, _gulpFilter2.default)(function (file) {
@@ -67,12 +69,11 @@ _gulp2.default.task('webCss', function () {
         outputStyle: 'nested'
     };
 
-    _gulp2.default.src('./src/css/main.scss').pipe((0, _gulpSass2.default)(sassOpts).on('error', _gulpSass2.default.logError)).pipe((0, _gulpAutoprefixer2.default)({ browsers: ['ff >= 4', 'Chrome >= 19', 'ie >= 9'], cascade: false })).pipe(_gulp2.default.dest('./dist/css/')).pipe(browserSync.stream());
+    _gulp2.default.src('./src/css/main.scss').pipe((0, _gulpSass2.default)(sassOpts).on('error', _gulpSass2.default.logError)).pipe((0, _gulpAutoprefixer2.default)({ browsers: ['ff >= 4', 'Chrome >= 19', 'ie >= 9'], cascade: false })).pipe((0, _gulpCleanCss2.default)()).pipe(_gulp2.default.dest('./dist/css/')).pipe(browserSync.stream());
 });
 
 _gulp2.default.task('webJs', function () {
-
-    _gulp2.default.src('./src/js/**/*.es6').pipe((0, _gulpPlumber2.default)()).pipe((0, _gulpBabel2.default)(babelOpts)).pipe(_gulp2.default.dest('./dist/js/')).pipe(browserSync.stream());
+    _gulp2.default.src('./src/js/**/*.es6').pipe((0, _gulpPlumber2.default)()).pipe((0, _gulpBabel2.default)(babelOpts)).pipe((0, _gulpUglify2.default)()).pipe(_gulp2.default.dest('./dist/js/')).pipe(browserSync.stream());
 });
 
 _gulp2.default.task('normalize', function () {
