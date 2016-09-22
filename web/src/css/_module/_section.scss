@@ -1,0 +1,97 @@
+$background-color: #333;
+#section1 {
+  background: {
+    color: #fff;
+    //blend-mode: overlay;
+    //color: transparentize($background-color, .3);
+    //image: url('#{$img}/bg.jpg');
+    //size: cover;
+    //repeat: no-repeat;
+    //position: center center;
+  }
+  position: relative;
+}
+
+#section2 {
+  background: $background-color;
+}
+
+.section {
+
+  @include e('sponsor') {
+    ul {
+      list-style: none;
+      text-align: center;
+      padding: 0;
+      @include clearfix;
+    }
+    li {
+      display: inline-block;
+
+    }
+  }
+}
+
+.section {
+  @include e('hashtag') {
+    font-size: 10pt;
+    color: #333;
+    text-align: center;
+    font-weight: bold;
+    margin-top: 20%;
+  }
+}
+
+.section {
+  @include e('button') {
+    margin: 4rem 0 0 0;
+    text-align: center;
+
+    .mdl-button {
+      $size: 128px;
+      height: $size;
+      width: $size;
+      min-width: $size;
+      //@include breakpoint(medium) {
+      //  $size: 512px;
+      //  height: $size;
+      //  width: $size;
+      //  min-width: $size;
+      //}
+
+      img {
+        $size: 60%;
+        height: $size;
+        width: $size;
+        @include absolute-center;
+        opacity: 0;
+        transition: all .5s;
+      }
+      &:hover {
+        img {
+          opacity: 1;
+        }
+      }
+    }
+
+    p {
+      @keyframes example {
+        0% {
+          color: red;
+        }
+        100% {
+          color: yellow;
+        }
+      }
+
+      animation: example linear 1.5s;
+      animation-iteration-count: infinite;
+
+      margin-top: 2rem;
+      text-transform: uppercase;
+      color: #fff;
+      font-weight: bold;
+      font-size: 16pt;
+    }
+  }
+}

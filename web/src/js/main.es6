@@ -1,16 +1,21 @@
 const isProd = window.location.hostname !== '192.168.2.50' && window.location.hostname !== 'localhost';
-// const isProd = true;
+// const isProd = false;
 
-let urlBase = 'localhost:8080';
+let urlBase = '192.168.2.50:8080';
 if (isProd) {
     urlBase = 'api.baristawars2016.com/public'
 }
 urlBase = `http://${urlBase}`;
 
+const fullpageRebuild = ()=> {
+    if ($.fn.fullpage.reBuild != null) {
+        $.fn.fullpage.reBuild()
+    }
+}
 
 const getRegistrationForm = () => {
     let isTime = false;
-    const element = $('#section2 .fp-tableCell');
+    const element = $('#section2');
     let html, html2;
 
     $.ajax({
@@ -64,10 +69,10 @@ const getRegistrationForm = () => {
                 });
 
                 $form
-                // .off('change', '#register_dob')
-                // .on('change', '#register_dob', (e)=> {
-                //     console.log($(this))
-                // })
+                    .on('click tap touchstart', 'label[for=register_picture]', (e)=> {
+                        const $this = $(e.target);
+                        $('#register_picture').trigger('click tap touchstart')
+                    })
                     .on('change', '#register_picture', (e)=> {
                         const $this = $(e.target);
                         const $imgEl = $this.closest('.mdl-card').find('.mdl-card__title');
@@ -79,7 +84,8 @@ const getRegistrationForm = () => {
 
                             reader.onload = function (e) {
                                 $imgEl.css('background-image', `url(${e.target.result})`);
-                                $.fn.fullpage.reBuild();
+                                $this.closest('label').find('.mdl-button').text('picture taken')
+                                fullpageRebuild();
                             };
 
                             reader.readAsDataURL(input.files[0]);
@@ -100,8 +106,7 @@ const getRegistrationForm = () => {
                         const $this = $(e.target);
 
                         const formData = new FormData($this[0]);
-                        const $buttonContainer = element.find('.mdl-card__supporting-text');
-                        const $buttonSubmit = element.find('.mdl-card__actions button');
+                        const $buttonSubmit = element.find('button[type="submit"]');
 
                         $.ajax({
                             url: `${urlBase}${$this.attr('action')}`,
@@ -124,9 +129,10 @@ const getRegistrationForm = () => {
                                 html2 = Template.flash(false, xhr.statusText);
                             },
                             complete(){
-                                $buttonContainer.append(html2);
-                                $buttonSubmit.attr('disabled', false);
+                                $buttonSubmit.attr('disabled', false)
+                                    .before(html2);
                                 element.find('.mdl-progress').hide();
+                                fullpageRebuild();
                             },
                             cache: false,
                             contentType: false,
@@ -135,19 +141,24 @@ const getRegistrationForm = () => {
 
                         return false;
                     });
-
-                $('body').append('<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBjhGHb81MIdRsBEJhhSSUe78JLGIRhHJA&libraries=places&callback=initAutocomplete"></script>');
+                const scriptSrc = 'https://maps.googleapis.com/maps/api/js?key=AIzaSyBjhGHb81MIdRsBEJhhSSUe78JLGIRhHJA&libraries=places&callback=initAutocomplete';
+                if ($('body').find(`script[src="${scriptSrc}"]`).length === 0) {
+                    $('body').append(`<script src="${scriptSrc}"></script>`);
+                }
                 const f = ()=> {
                     $('#register_coffeeshop').removeAttr('placeholder');
-                }
-                delay(f, 500);
-                $.fn.fullpage.reBuild();
+                };
+                delay(f, 700);
+                fullpageRebuild();
             }
         }
     });
 };
 
 $(()=> {
+    if (typeof FastClick != 'undefined') {
+        FastClick.attach(document.body);
+    }
     const afterLoad = (anchorLink, index) => {
         switch (anchorLink) {
             case 'registration':
@@ -156,13 +167,25 @@ $(()=> {
         }
     };
 
+    // getRegistrationForm();
+    // $('.section').height($(window).height())
+
     $('#fullpage').fullpage({
         anchors: ['main', 'registration'],
+        // css3: false,
         // menu: 'nav.menu ul',
-        scrollOverflow: true,
-        // scrollOverflowOptions: {
-        //     click: true
-        // },
+        // scrollOverflow: true,
+        responsiveWidth: 500,
+        fitToSection: false,
+        // autoScrolling:false,
+        // scrollBar: true,
+        // scrollOverflow: false,
+        scrollOverflowOptions: {
+
+            tap: true,
+            // preventDefault: false,
+            // preventDefaultException: {tagName: /^(TEXTAREA|BUTTON|SELECT)$/}
+        },
         afterLoad
     });
 });

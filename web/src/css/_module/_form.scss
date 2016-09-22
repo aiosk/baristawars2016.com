@@ -84,14 +84,36 @@
     width: 50%;
     max-width: 700px;
   }
+  label[for='register_picture'] {
+    position: relative;
 
+    input[type='file'] {
+      //@include element-invisible;
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 38px;
+      opacity: 0;
+    }
+    .mdl-button {
+      //@include breakpoint(small down) {
+      //
+      //  padding: 4px 8px;
+      //  height: auto;
+      //  $size: 12px;
+      //  font-size: $size;
+      //  line-height: $size;
+      //}
 
-  input[type='file'] {
-    @include element-invisible;
+    }
   }
 }
 
 .mdl-textfield {
   width: 100%;
 
+}
+
+button[type='submit'] {
+  width: 100%;
 }

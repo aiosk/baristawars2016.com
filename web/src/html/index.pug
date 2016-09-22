@@ -2,14 +2,20 @@ extends _layout/_master.pug
 block body-css
     link(rel='stylesheet', href='https://code.jquery.com/ui/1.12.0/themes/base/jquery-ui.css')
     link(rel='stylesheet', href='https://cdnjs.cloudflare.com/ajax/libs/fullPage.js/2.8.6/jquery.fullPage.min.css')
+    link(rel='stylesheet', href='https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css')
 
 block body-js
+    //script(src='https://raw.githubusercontent.com/idevsoftware/js-background-blend-mode/master/blend-mode.js')
     script(src='https://code.jquery.com/ui/1.12.0/jquery-ui.min.js')
     //script(src='https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.15.0/moment.min.js')
+    script(src='https://cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.js')
+    //script(src='js/vendor/fastclick.js')
 
     script(src='https://cdnjs.cloudflare.com/ajax/libs/fullPage.js/2.8.6/vendors/jquery.easings.min.js')
-    script(src='https://cdnjs.cloudflare.com/ajax/libs/fullPage.js/2.8.6/vendors/scrolloverflow.min.js')
-    script(src='https://cdnjs.cloudflare.com/ajax/libs/fullPage.js/2.8.6/jquery.fullPage.js')
+    script(src='https://cdnjs.cloudflare.com/ajax/libs/fullPage.js/2.8.6/vendors/scrolloverflow.js')
+    //script(src='js/vendor/scrolloverflow.js')
+    script(src='https://cdnjs.cloudflare.com/ajax/libs/fullPage.js/2.8.6/jquery.fullPage.min.js')
+    script(src='https://use.fontawesome.com/34f88ceba9.js')
     //script(src='https://cdnjs.cloudflare.com/ajax/libs/axios/0.14.0/axios.min.js')
     //script(src='https://cdnjs.cloudflare.com/ajax/libs/blueimp-file-upload/9.12.5/js/jquery.fileupload.min.js')
     //script(src='https://cdnjs.cloudflare.com/ajax/libs/parsley.js/2.4.4/parsley.min.js')
@@ -19,23 +25,16 @@ block body-script
     :babel(presets=['es2015'])
 
 block body
-    //nav.menu
-    //    ul
-    //        li(data-menuanchor='sponsor').active: a(href='#sponsor') sponsor
-    //        li(data-menuanchor='challengers'): a(href='#challengers') challengers
-    //        li(data-menuanchor='rules'): a(href='#rules') the rules
-    //        li(data-menuanchor='schedule'): a(href='#schedule') schedule
-    //        li(data-menuanchor='venue'): a(href='#venue') venue
-    //        li(data-menuanchor='registration'): a(href='#registration') registration
     .fullpage#fullpage
-        .section#section1
+        .section#section1.fp-noscroll
             .section__sponsor
                 ul
-                    li: a(href='#',class='icon icon--instagram')
-            .section__hashtag
-                h1 #indonesiabaristawars2016
+                    li: a(href='//www.instagram.com/prodigycoffee_id',class='icon icon--instagram'): i.fa.fa-instagram.fa-2x
             .section__button
-                a(href='#registration').mdl-button.mdl-js-button.mdl-button--raised.mdl-js-ripple-effect.mdl-button--accent start the war
+                a(href='#registration').mdl-button.mdl-js-button.mdl-button--fab.mdl-button--accent
+                    img(src='img/icon--white.png')
+                p start the war
+            .section__hashtag #indonesiabaristawars2016
         .section#section2
             .form.mdl-card.mdl-shadow--2dp
                 .mdl-progress.mdl-js-progress.mdl-progress__indeterminate
@@ -57,8 +56,8 @@ block body
                                 label(for='register_dob').mdl-textfield__label date of birth
                         .mdl-grid
                             label.form__upload(for='register_picture')
-                                span.mdl-button.mdl-js-button.mdl-button--accent.mdl-js-ripple-effect(style={'border':'thin solid'}) choose picture
-                                input#register_picture(type='file', name='picture', accept='image/*')
+                                span.mdl-button.mdl-js-button.mdl-button--accent(style={'border': 'thin solid'}) choose picture
+                                input#register_picture(type='file', name='picture', accept='image/*',)
                         .mdl-grid
                             .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label
                                 label(for='register_address').mdl-textfield__label address
@@ -69,8 +68,10 @@ block body
                                 #map
                                 input#register_coffeeshop(type='text').mdl-textfield__input
                                 input#register_coffeeshop_maps(type='hidden', name='coffeeshop_location')
-                .mdl-card__actions.mdl-card--border
-                    button(type='submit')#register_submit.mdl-button.mdl-js-button.mdl-button--raised.mdl-button--accent.mdl-js-ripple-effect submit
+                        .mdl-grid
+                            button(type='submit')#register_submit.mdl-button.mdl-js-button.mdl-button--raised.mdl-button--accent.mdl-js-ripple-effect submit
+                //.mdl-card__actions.mdl-card--border
+
 
     //header
     //    h4 header (logo)
