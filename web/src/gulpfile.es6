@@ -7,6 +7,7 @@ import autoprefixer from 'gulp-autoprefixer';
 import cleanCSS from 'gulp-clean-css';
 import rename from "gulp-rename";
 import filter from 'gulp-filter';
+import uglify from 'gulp-uglify';
 import concat from 'gulp-concat';
 const browserSync = require('browser-sync').create();
 const {reload} = browserSync;
@@ -17,7 +18,7 @@ const babelOpts = {presets: ['es2015'], compact: false};
 gulp.task('webHtml', () => {
     const pugOpts = {
         data: {},
-        pretty: true,
+        pretty: false,
         compileDebug: true
     };
     gulp.src('./src/html/**/*.pug')
@@ -40,15 +41,16 @@ gulp.task('webCss', () => {
     gulp.src(`./src/css/main.scss`)
         .pipe(sass(sassOpts).on('error', sass.logError))
         .pipe(autoprefixer({browsers: ['ff >= 4', 'Chrome >= 19', 'ie >= 9'], cascade: false}))
+        .pipe(cleanCSS())
         .pipe(gulp.dest('./dist/css/'))
         .pipe(browserSync.stream());
 });
 
 gulp.task('webJs', () => {
-
     gulp.src('./src/js/**/*.es6')
         .pipe(plumber())
         .pipe(babel(babelOpts))
+        .pipe(uglify())
         .pipe(gulp.dest('./dist/js/'))
         .pipe(browserSync.stream());
 });
