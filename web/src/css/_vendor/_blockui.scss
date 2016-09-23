@@ -1,0 +1,17 @@
+.blockUI.blockMsg.blockPage {
+  position: absolute !important;
+  top: 50% !important;
+  left: 50% !important;
+  transform: translate(-50%, -50%) !important;
+  width: 100% !important;
+  overflow-y: scroll;
+  height: 100%;
+  @include breakpoint('medium') {
+    width: 50% !important;
+  }
+  z-index: 5 !important;
+}
+
+.blockUI.blockOverlay {
+  z-index: 4 !important;
+}

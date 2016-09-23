@@ -15,7 +15,7 @@ const fullpageRebuild = ()=> {
 
 const getRegistrationForm = () => {
     let isTime = false;
-    const element = $('#section2');
+    const element = $(document).find('.form.mdl-card');
     let html;
 
     $.ajax({
@@ -170,30 +170,41 @@ $(()=> {
     const afterLoad = (anchorLink, index) => {
         switch (anchorLink) {
             case 'registration':
-                getRegistrationForm();
+                // getRegistrationForm();
                 break;
         }
     };
 
-    // getRegistrationForm();
     // $('.section').height($(window).height())
 
     $('#fullpage').fullpage({
-        anchors: ['main', 'registration'],
+        // anchors: ['main'],
         // css3: false,
         // menu: 'nav.menu ul',
         // scrollOverflow: true,
-        responsiveWidth: 500,
-        fitToSection: false,
+        // responsiveWidth: 500,
+        // fitToSection: false,
         // autoScrolling:false,
         // scrollBar: true,
         // scrollOverflow: false,
         scrollOverflowOptions: {
-
             tap: true,
             // preventDefault: false,
             // preventDefaultException: {tagName: /^(TEXTAREA|BUTTON|SELECT)$/}
         },
         afterLoad
     });
+
+    $('.section__button .mdl-button').on('click',(e)=>{
+        getRegistrationForm();
+        $.blockUI({
+            message:$('.form.mdl-card'),
+            // css:{
+            //     width:'50%',
+            //     top:'0',
+                // left:'0'
+            // },
+        });
+        $('.blockOverlay').attr('title','Click to unblock').on('click',$.unblockUI);
+    })
 });
