@@ -1,5 +1,5 @@
-const isProd = window.location.hostname !== '192.168.2.50' && window.location.hostname !== 'localhost';
-// const isProd = false;
+//const isProd = window.location.hostname !== '192.168.2.50' && window.location.hostname !== 'localhost';
+ const isProd = true;
 
 let urlBase = '192.168.2.50:8080';
 if (isProd) {
@@ -48,7 +48,7 @@ const getRegistrationForm = () => {
             }
 
             if ($form.length === 0) {
-                element.find('.mdl-card__actions.mdl-card--border').remove()
+                //element.find('.mdl-card__actions.mdl-card--border').remove()
             } else {
                 $form.find("#register_dob").datepicker({
                     changeMonth: true,
@@ -149,6 +149,8 @@ const getRegistrationForm = () => {
 
                         return false;
                     });
+                
+                fullpageRebuild();
                 const scriptSrc = 'https://maps.googleapis.com/maps/api/js?key=AIzaSyBjhGHb81MIdRsBEJhhSSUe78JLGIRhHJA&libraries=places&callback=initAutocomplete';
                 if ($('body').find(`script[src="${scriptSrc}"]`).length === 0) {
                     $('body').append(`<script src="${scriptSrc}"></script>`);
@@ -157,7 +159,6 @@ const getRegistrationForm = () => {
                     $('#register_coffeeshop').removeAttr('placeholder');
                 };
                 delay(f, 700);
-                fullpageRebuild();
             }
         }
     });
