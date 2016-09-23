@@ -16,7 +16,10 @@ return [
             'level' => \Monolog\Logger::DEBUG,
         ],
 
-        'timezone' => 'Asia/Jakarta',
+        'time' => [
+            'timezone' => 'Asia/Jakarta',
+            'format' => 'Y-m-d H:i:s',
+        ],
 
         "db" => [
             "host" => "localhost",

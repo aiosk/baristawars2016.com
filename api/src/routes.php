@@ -4,8 +4,8 @@
 $app->get('/helper/time', function ($request, $response, $args) {
     $this->logger->info("get current time and timezone");
 
-    $tz = $this->get('settings')['timezone'];
-    $format = 'Y-m-d H:i:s';
+    $tz = $this->get('settings')['time']['timezone'];
+    $format = $this->get('settings')['time']['format'];
     date_default_timezone_set($tz);
 
     $now = new DateTime("now");
@@ -134,11 +134,17 @@ $app->post('/registration', function ($request, $response) {
             }
         }
 
-        $st = $this->db->prepare("INSERT INTO user (email,idcard,coffeeshop_id) VALUES (:email,:idcard,:coffeeshop_id)");
+        $tz = $this->get('settings')['time']['timezone'];
+        $format = $this->get('settings')['time']['format'];
+        date_default_timezone_set($tz);
+        $now = new DateTime("now");
+
+        $st = $this->db->prepare("INSERT INTO user (email,idcard,registration_time,coffeeshop_id) VALUES (:email,:idcard,:regtime,:coffeeshop_id)");
         $st->execute([
             ':email' => $data['email'],
             ':idcard' => $data['idcard'],
             ':coffeeshop_id' => $coffeeshop_id,
+            ':regtime' => $now->format($format),
         ]);
 
         $q = "INSERT INTO user_detail (user_id,name,dob,address,picture) VALUES (:id,:name,:dob,:address,:picture)";
@@ -189,6 +195,8 @@ LIMIT 1");
 
         foreach ($participants as $v) {
             $to = [$v['email'] => $v['name']];
+            $regtime = new DateTime($v['registration_time']);
+            $v['registration_time'] = $regtime->format('j M Y, H:i');
 
             $body = file_get_contents(__DIR__ . '/mail.txt');
             $body = mailRender($v, $body);
