@@ -1,0 +1,119 @@
+//form {
+//}
+//
+//.form {
+//
+//  @include e('row') {
+//    @include grid-row($width: 800px);
+//    margin: 0 0 1rem 0;
+//  }
+//
+//  @include e('label') {
+//    text-transform: capitalize;
+//
+//    @include p('&', '& label') {
+//      font-size: 11pt;
+//      font-weight: bold;
+//    }
+//
+//    @include while('required') {
+//      @include clearfix;
+//      @include p('&', '& label') {
+//        color: red;
+//      }
+//      position: relative;
+//      label:after {
+//        content: '*';
+//        margin-left: .5rem;
+//      }
+//    }
+//
+//  }
+//
+//  @include e('field') {
+//    @include breakpoint('medium') {
+//      //@include grid-col(10);
+//    }
+//  }
+//
+//  @include e('upload-image') {
+//    max-width: 100%;
+//    margin-bottom: 1rem;
+//    @include breakpoint('medium') {
+//      max-width: 300px;
+//      max-height: 300px;
+//    }
+//  }
+//
+//  @include e('button') {
+//    @extend .text-right;
+//    [type='submit'] {
+//      @include button;
+//      @include button-expand;
+//      //@include button-hollow;
+//      //@include button-hollow-style;
+//      text-transform: uppercase;
+//
+//      &:disabled {
+//        @include button-disabled;
+//      }
+//    }
+//  }
+//}
+//
+//.form {
+//  @include e('upload') {
+//    span {
+//      @include button;
+//      @include button-hollow;
+//      @include button-hollow-style;
+//      font-size: .8rem;
+//      text-transform: uppercase;
+//
+//    }
+//    input {
+//      @include element-invisible;
+//    }
+//
+//  }
+//}
+.form {
+  margin: 0 auto;
+
+  @include breakpoint(medium) {
+    width: 50%;
+    max-width: 700px;
+  }
+  label[for='register_picture'] {
+    position: relative;
+
+    input[type='file'] {
+      //@include element-invisible;
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 38px;
+      opacity: 0;
+    }
+    .mdl-button {
+      //@include breakpoint(small down) {
+      //
+      //  padding: 4px 8px;
+      //  height: auto;
+      //  $size: 12px;
+      //  font-size: $size;
+      //  line-height: $size;
+      //}
+
+    }
+  }
+}
+
+.mdl-textfield {
+  width: 100%;
+
+}
+
+button[type='submit'] {
+  width: 100%;
+}

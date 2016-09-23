@@ -1,0 +1,42 @@
+//.mdl-grid {
+//  @include breakpoint(small down) {
+//    padding: 1px;
+//  }
+//}
+//
+//.mdl-card__supporting-text, .mdl-card__title {
+//  @include breakpoint(small down) {
+//    padding: 1px 8px;
+//  }
+//}
+
+.mdl-textfield {
+  //padding: 0 0 0 20px;
+}
+
+.mdl-textfield__label {
+  text-transform: capitalize;
+}
+
+.mdl-progress {
+  margin: 0 auto;
+  width: 100%;
+}
+
+.mdl-card__title {
+  background: {
+    repeat: no-repeat;
+    size: contain;
+    position: top right;
+  }
+  img{
+    height: 2rem;
+    @include breakpoint(medium){
+      height: 3rem;
+    }
+  }
+}
+
+.mdl-card__title-text {
+  text-transform: uppercase;
+}

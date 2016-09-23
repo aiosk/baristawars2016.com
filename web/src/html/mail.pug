@@ -1,0 +1,21 @@
+extends _layout/_master.pug
+
+block master-css
+block master-js
+
+block body
+    p Dear {{name}}
+    p You have been registered on BARISTAWARS2016.com. Here is your data
+        table
+            tr
+                td: b ID Card No.
+                td :
+                td {{idcard}}
+            tr
+                td: b Name
+                td :
+                td {{name}}
+            tr
+                td: b Registration on
+                td :
+                td {{datetime}}
