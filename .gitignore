@@ -1,3 +1,4 @@
 # aios
 uploads/
 *.zip
+.DS_Store
