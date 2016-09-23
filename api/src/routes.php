@@ -167,7 +167,7 @@ $app->post('/registration', function ($request, $response) {
     return $response;
 });
 
-$app->get('/cron/email/registraton', function ($request, $response) {
+$app->get('/cron/email/registration', function ($request, $response) {
 
     $response_data = [
         'status' => true,
@@ -179,12 +179,51 @@ $app->get('/cron/email/registraton', function ($request, $response) {
 job, is_sent
 FROM `user` u 
 LEFT JOIN user_detail ud ON u.id = ud.user_id  
-LEFT JOIN user_email ue ON u.id = ue.user_id AND is_sent IS NULL
+LEFT JOIN user_email ue ON u.id = ue.user_id
+WHERE is_sent IS NULL
 ORDER BY registration_time DESC
-LIMIT 2");
+LIMIT 1");
         $st->execute();
         $participants = $st->fetchAll();
-        
+        $response_data['items'] = $participants;
+
+        foreach ($participants as $v) {
+            $to = [$v['email'] => $v['name']];
+
+            $body = file_get_contents(__DIR__ . '/mail.txt');
+            $body = mailRender($v, $body);
+
+            $part = file_get_contents(__DIR__ . '/../../mail.html');
+            $part = mailRender($v, $part);
+
+            // Create the message
+            $transport = Swift_MailTransport::newInstance();
+            $mailer = Swift_Mailer::newInstance($transport);
+            $message = Swift_Message::newInstance()
+                // Give the message a subject
+                ->setSubject('Registration Info')
+                // Set the From address with an associative array
+                ->setFrom(array('info@baristawars2016.com' => 'Barista Wars 2016'))
+                // Set the To addresses with an associative array
+                ->setTo($to)
+                // Give it a body
+                ->setBody($body)
+                // And optionally an alternative body
+                ->addPart($part, 'text/html');
+            // Optionally add any attachments
+//            ->attach(Swift_Attachment::fromPath('my-document.pdf'));
+            $result = $mailer->send($message);
+
+            $st = $this->db->prepare("INSERT INTO user_email (user_id,job,body,is_sent) VALUES (:id,:job,:body,:sent)");
+            $st->execute([
+                ':id' => $v['id'],
+                ':job' => 'registration',
+                ':body' => 'body',
+                ':sent' => $result,
+            ]);
+
+        }
+
     } catch (Exception $e) {
         $response_data = [
             'status' => false,
@@ -197,7 +236,8 @@ LIMIT 2");
     $response->withJson($response_data);
 
     return $response;
-})
+});
+
 $app->get('/participant', function ($request, $response) {
     $this->logger->info("save registration form");
 

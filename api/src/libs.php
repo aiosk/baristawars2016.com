@@ -50,3 +50,11 @@ function formIsValidEmail($data, $element)
         throw new Exception($text . " is not valid");
     }
 }
+
+function mailRender($data, $text)
+{
+    $text = str_replace('{{name}}', $data['name'], $text);
+    $text = str_replace('{{idcard}}', $data['idcard'], $text);
+    $text = str_replace('{{datetime}}', $data['registration_time'], $text);
+    return $text;
+}
