@@ -76,7 +76,8 @@ const initAutocomplete = ()=> {
             $('#register_coffeeshop_maps').val(JSON.stringify({
                 name: place.name,
                 lat: place.geometry.location.lat(),
-                lng: place.geometry.location.lng()
+                lng: place.geometry.location.lng(),
+                vicinity: place.vicinity
             }));
 
             // markers.push(new google.maps.Marker({

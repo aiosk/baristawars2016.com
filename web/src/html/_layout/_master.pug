@@ -14,27 +14,14 @@ html.no-js(lang='')
         link(rel='stylesheet', type='text/css', href='https://code.getmdl.io/1.2.1/material.indigo-red.min.css')
         link(rel='stylesheet', type='text/css', href='css/main.css')
         block body-css
-        | <!--[if IE]>
-        |   <style>
-        |     #section1:before {
-        |        content: "";
-        |        position: absolute;
-        |        height: 100%;
-        |        width: 100%;
-        |        background: rgba(10, 36, 54, 0.9); /* THIS IS WHAT EVER OVERLAY COLOUR YOU WANT */
-        |     }
-        |   </style>
-        |<![endif]-->
-        //script(src='js/vendor/modernizr-2.8.3.min.js')
+
     body
         | <!--[if IE]>
         | #[p.browserupgrade You are using an <strong>outdated</strong> browser. Please <a href='http://browsehappy.com/'> upgrade your browser</a> to improve your experience.]
         | <![endif]-->
 
-        // Add your site or application content here
         block body
         script(src='https://code.jquery.com/jquery-3.1.0.min.js')
-        //script(src='http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js')
         script(defer, src='https://code.getmdl.io/1.2.1/material.min.js')
         block body-js
         script(src='js/helper.js')

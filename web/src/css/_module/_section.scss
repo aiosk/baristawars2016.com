@@ -17,34 +17,60 @@ $background-color: #333;
 }
 
 .section {
+  position: relative;
+  @include p('e:header', 'e:footer') {
+    position: absolute;
+    display: block;
+    width: 100%;
+    z-index: 9;
+    text-align: center;
+    height: 5rem;
+  }
+  @include e('header') {
+    top: 0;
+  }
+  @include e('footer') {
+    bottom: 0;
+  }
+}
 
+.section {
+
+  @include e('sponsor-hashtag') {
+    @include clearfix;
+    @include absolute-center;
+    @include breakpoint(small down) {
+      width: 200px;
+    }
+  }
+  @include p('e:sponsor', 'e:hashtag') {
+    float: left;
+  }
   @include e('sponsor') {
     ul {
       list-style: none;
-      text-align: center;
+      //text-align: center;
+      margin: 0;
       padding: 0;
       @include clearfix;
     }
     li {
       display: inline-block;
-
     }
   }
-}
 
-.section {
   @include e('hashtag') {
     font-size: 10pt;
+    line-height: 30px;
     color: #333;
     text-align: center;
     font-weight: bold;
-    margin-top: 20%;
+    margin-left: 0.5rem;
   }
 }
 
 .section {
   @include e('button') {
-    margin: 4rem 0 0 0;
     text-align: center;
 
     .mdl-button {
@@ -52,6 +78,7 @@ $background-color: #333;
       height: $size;
       width: $size;
       min-width: $size;
+      border: 0.25rem solid #000;
       //@include breakpoint(medium) {
       //  $size: 512px;
       //  height: $size;
@@ -75,23 +102,13 @@ $background-color: #333;
     }
 
     p {
-      @keyframes example {
-        0% {
-          color: red;
-        }
-        100% {
-          color: yellow;
-        }
-      }
-
-      animation: example linear 1.5s;
-      animation-iteration-count: infinite;
-
       margin-top: 2rem;
       text-transform: uppercase;
-      color: #fff;
+      color: #000;
       font-weight: bold;
       font-size: 16pt;
+      animation-duration: 2.5s;
+      animation-iteration-count: 3;
     }
   }
 }

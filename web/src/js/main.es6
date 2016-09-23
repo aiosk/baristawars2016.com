@@ -16,14 +16,14 @@ const fullpageRebuild = ()=> {
 const getRegistrationForm = () => {
     let isTime = false;
     const element = $('#section2');
-    let html, html2;
+    let html;
 
     $.ajax({
         url: `${urlBase}/helper/time`,
         dataType: 'json',
         beforeSend(){
             element
-                .find('.parsley-errors-list.filled').remove().end();
+                .find('.parsley-errors-list.filled, .parsley-success-list.filled').remove().end();
         },
         success(data){
             isTime = data.registrationOpen;
@@ -84,7 +84,9 @@ const getRegistrationForm = () => {
 
                             reader.onload = function (e) {
                                 $imgEl.css('background-image', `url(${e.target.result})`);
-                                $this.closest('label').find('.mdl-button').text('picture taken')
+                                $this.closest('label').find('.mdl-button')
+                                    .text('picture taken')
+                                    .addClass('mdl-button--raised');
                                 fullpageRebuild();
                             };
 
@@ -104,9 +106,9 @@ const getRegistrationForm = () => {
                         e.preventDefault();
 
                         const $this = $(e.target);
-
                         const formData = new FormData($this[0]);
                         const $buttonSubmit = element.find('button[type="submit"]');
+                        let html2, dataAjax;
 
                         $.ajax({
                             url: `${urlBase}${$this.attr('action')}`,
@@ -118,19 +120,25 @@ const getRegistrationForm = () => {
                                 $buttonSubmit.attr('disabled', true);
 
                                 element
-                                    .find('.parsley-errors-list.filled').remove().end()
+                                    .find('.parsley-errors-list.filled, .parsley-success-list.filled').remove().end()
                                     .find('.mdl-progress').show();
                             },
                             success(data) {
                                 html2 = Template.flash(data.status, data.message);
-                                element.find(`[name=${data.element}]`).closest('.mdl-textfield').addClass('is-invalid')
+                                dataAjax = data;
                             },
                             error(xhr){
                                 html2 = Template.flash(false, xhr.statusText);
                             },
                             complete(){
-                                $buttonSubmit.attr('disabled', false)
-                                    .before(html2);
+                                $buttonSubmit.attr('disabled', false);
+                                if (dataAjax != null && dataAjax.element != '') {
+                                    element.find(`[name=${dataAjax.element}]`)
+                                        .closest('.mdl-textfield').addClass('is-invalid').end()
+                                        .closest('.mdl-grid').append(html2).end();
+                                } else {
+                                    $buttonSubmit.before(html2);
+                                }
                                 element.find('.mdl-progress').hide();
                                 fullpageRebuild();
                             },

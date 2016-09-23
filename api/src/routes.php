@@ -1,14 +1,6 @@
 <?php
 // Routes
 
-//$app->get('/[{name}]', function ($request, $response, $args) {
-//    // Sample log message
-//    $this->logger->info("Slim-Skeleton '/' route");
-//
-//    // Render index view
-//    return $this->renderer->render($response, 'index.phtml', $args);
-//});
-
 $app->get('/helper/time', function ($request, $response, $args) {
     $this->logger->info("get current time and timezone");
 
@@ -18,8 +10,8 @@ $app->get('/helper/time', function ($request, $response, $args) {
 
     $now = new DateTime("now");
     $registration = [
-        'start' => new DateTime('2016-09-13 00:00:00'),
-        'end' => new DateTime('2016-09-25 23:59:59'),
+        'start' => new DateTime('2016-09-20 00:00:00'),
+        'end' => new DateTime('2016-09-30 23:59:59'),
     ];
 
 
@@ -42,54 +34,66 @@ $app->get('/helper/time', function ($request, $response, $args) {
 });
 
 
+require __DIR__ . '/libs.php';
 $app->post('/registration', function ($request, $response) {
     $this->logger->info("save registration form");
 
+    $formElement = '';
     $response_data = [
         'status' => true,
-        'message' => 'Registration success'
+        'message' => 'Registration success',
+        'element' => $formElement,
     ];
 
     try {
         $data = $request->getParsedBody();
-		$exceptionElement = null;
-//        var_dump($data);
 
-        foreach (['name', 'email'] as $v) {
-            $text = ucfirst($v);
-            $data[$v] = filter_var(trim($data[$v]), FILTER_SANITIZE_STRING);
-            if (empty($data[$v])) {
-				$exceptionElement = $v;
-                throw new Exception(ucfirst($text) . " is empty");
-            }
-        }
-		$data['address'] = filter_var(trim($data['address']), FILTER_SANITIZE_STRING);
-		
-        $data['name'] = filter_var(trim($data['name']), FILTER_VALIDATE_REGEXP, array("options" => array("regexp" => "/[\w ]+/")));
-        if (!$data['name']) {
-			$exceptionElement = 'name';
-            throw new Exception("Name is not valid");
-        }
-		$data['email'] = filter_var(trim($data['email']), FILTER_VALIDATE_EMAIL);
-        if (!$data['email']) {
-			$exceptionElement = 'email';
-            throw new Exception("Email is not valid");
-        }
-        $data['dob'] = filter_var(trim($data['dob']), FILTER_VALIDATE_REGEXP, array("options" => array("regexp" => "/\d{4}\-\d{2}\-\d{2}/")));
-        if (!$data['dob']) {
-			$exceptionElement = 'dob';
-            throw new Exception("Date of Birth is not valid");
-        }
+//        foreach (['idcard', 'name', 'email'] as $v) {
+//            $text = ucfirst($v);
+//            if ($v == 'idcard') {
+//                $text = 'ID card';
+//            }
+//            $data[$v] = filter_var(trim($data[$v]), FILTER_SANITIZE_STRING);
+//            if (empty($data[$v])) {
+//                $exceptionElement = $v;
+//                throw new Exception(ucfirst($text) . " is empty");
+//            }
+//        }
 
-        $st = $this->db->prepare("select count(id) total from user where email=:email");
-        $st->execute([':email' => $data['email']]);
+        $data['address'] = filter_var(trim($data['address']), FILTER_SANITIZE_STRING);
+
+        $formElement = 'idcard';
+        formIsEmpty($data, $formElement);
+        formIsValidRegexp($data, $formElement, '^[0-9]{16}$');
+//        formIsValidlength($data, $formElement, 16);
+
+        $formElement = 'name';
+        formIsEmpty($data, $formElement);
+        formIsValidRegexp($data, $formElement, '^[a-zA-Z ]+$');
+
+        $formElement = 'email';
+        formIsEmpty($data, $formElement);
+        formIsValidEmail($data, $formElement);
+
+        $formElement = 'dob';
+        formIsEmpty($data, $formElement);
+        formIsValidRegexp($data, $formElement, '\d{4}\-\d{2}\-\d{2}');
+
+        $formElement = '';
+        $st = $this->db->prepare("SELECT count(id) total FROM user WHERE email=:email and idcard=:idcard");
+        $st->execute([
+            ':email' => $data['email'],
+            ':idcard' => $data['idcard']
+        ]);
+//        throw new Exception("disini");
         $user_exist = $st->fetch();
 
         if ((int)$user_exist['total'] > 0) {
-            throw new Exception("'" . $data['email'] . "' already registered");
+            throw new Exception($data['email'] . " and ID card already registered");
         }
 
         $files = $request->getUploadedFiles();
+        $formElement = 'picture';
         $picture = $files['picture'];
         $fileLoc = '';
         if (!empty($picture->getClientMediaType())) {
@@ -103,21 +107,25 @@ $app->post('/registration', function ($request, $response) {
         } else {
             throw new Exception("Picture is empty");
         }
-
+        $formElement = '';
         $coffeeshop_id = 0;
         if (!empty($data['coffeeshop_location'])) {
             $location = json_decode($data['coffeeshop_location']);
 
-            $st = $this->db->prepare("select id from coffeeshop where name=:name");
+            $st = $this->db->prepare("SELECT id FROM coffeeshop WHERE name=:name");
 
             $st->execute([':name' => $location->name]);
             $coffeeshop_exist = $st->fetch();
 
             if (empty($coffeeshop_exist)) {
-                $st = $this->db->prepare('insert into coffeeshop (name,location) values (:name,:location)');
+                $st = $this->db->prepare("INSERT INTO coffeeshop (name,location) VALUES (:name, :location)");
                 $st->execute([
                     ':name' => $location->name,
-                    ':location' => $location->lat . ',' . $location->lng,
+                    ':location' => json_encode([
+                        'lat' => $location->lat,
+                        'lng' => $location->lng,
+                        'vicinity' => $location->vicinity,
+                    ]),
                 ]);
 
                 $coffeeshop_id = $this->db->lastInsertId();
@@ -126,13 +134,14 @@ $app->post('/registration', function ($request, $response) {
             }
         }
 
-        $st = $this->db->prepare('insert into user (email,coffee_id) values (:email,:coffee_id)');
+        $st = $this->db->prepare("INSERT INTO user (email,idcard,coffeeshop_id) VALUES (:email,:idcard,:coffeeshop_id)");
         $st->execute([
             ':email' => $data['email'],
-            ':coffee_id' => $coffeeshop_id,
+            ':idcard' => $data['idcard'],
+            ':coffeeshop_id' => $coffeeshop_id,
         ]);
 
-        $q = 'insert into user_detail (user_id,name,dob,address,picture) values (:id,:name,:dob,:address,:picture)';
+        $q = "INSERT INTO user_detail (user_id,name,dob,address,picture) VALUES (:id,:name,:dob,:address,:picture)";
         $st = $this->db->prepare($q);
         $st->execute([
             ':id' => $this->db->lastInsertId(),
@@ -146,7 +155,7 @@ $app->post('/registration', function ($request, $response) {
         $response_data = [
             'status' => false,
             'message' => $e->getMessage(),
-            'element' => $exceptionElement,
+            'element' => $formElement,
 //            'file' => $e->getFile(),
 //            'line' => $e->getLine(),
 //            'trace' => $e->getTraceAsString(),
@@ -158,6 +167,37 @@ $app->post('/registration', function ($request, $response) {
     return $response;
 });
 
+$app->get('/cron/email/registraton', function ($request, $response) {
+
+    $response_data = [
+        'status' => true,
+        'message' => '',
+    ];
+
+    try {
+        $st = $this->db->prepare("SELECT u.id, email, idcard, registration_time, ud.name,
+job, is_sent
+FROM `user` u 
+LEFT JOIN user_detail ud ON u.id = ud.user_id  
+LEFT JOIN user_email ue ON u.id = ue.user_id AND is_sent IS NULL
+ORDER BY registration_time DESC
+LIMIT 2");
+        $st->execute();
+        $participants = $st->fetchAll();
+        
+    } catch (Exception $e) {
+        $response_data = [
+            'status' => false,
+            'message' => $e->getMessage(),
+            'file' => $e->getFile(),
+            'line' => $e->getLine(),
+//            'trace' => $e->getTraceAsString(),
+        ];
+    }
+    $response->withJson($response_data);
+
+    return $response;
+})
 $app->get('/participant', function ($request, $response) {
     $this->logger->info("save registration form");
 
@@ -166,10 +206,10 @@ $app->get('/participant', function ($request, $response) {
         'message' => '',
     ];
     try {
-        $st = $this->db->prepare("SELECT u.id,email,registration_time,confirm_time,participant_id, 
+        $st = $this->db->prepare("SELECT u.id,email,idcard,registration_time,confirm_time,participant_id, 
 ud.name,dob,address,picture, c.name coffeeshop_name,c.location coffeeshop_location 
 FROM `user` u LEFT JOIN user_detail ud ON u.id = ud.user_id 
-LEFT JOIN coffeeshop c ON u.coffee_id = c.id 
+LEFT JOIN coffeeshop c ON u.coffeeshop_id = c.id 
 ORDER BY registration_time DESC");
         $st->execute();
         $participants = $st->fetchAll();

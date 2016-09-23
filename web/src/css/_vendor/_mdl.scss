@@ -29,6 +29,12 @@
     size: contain;
     position: top right;
   }
+  img{
+    height: 2rem;
+    @include breakpoint(medium){
+      height: 3rem;
+    }
+  }
 }
 
 .mdl-card__title-text {
