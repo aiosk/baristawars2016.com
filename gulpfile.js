@@ -40,6 +40,10 @@ var _gulpUglify = require('gulp-uglify');
 
 var _gulpUglify2 = _interopRequireDefault(_gulpUglify);
 
+var _gulpIf = require('gulp-if');
+
+var _gulpIf2 = _interopRequireDefault(_gulpIf);
+
 var _gulpConcat = require('gulp-concat');
 
 var _gulpConcat2 = _interopRequireDefault(_gulpConcat);
@@ -51,11 +55,12 @@ var reload = browserSync.reload;
 
 
 var babelOpts = { presets: ['es2015'], compact: false };
+var isProduction = true;
 
 _gulp2.default.task('webHtml', function () {
     var pugOpts = {
         data: {},
-        pretty: false,
+        pretty: !isProduction,
         compileDebug: true
     };
     _gulp2.default.src('./src/html/**/*.pug').pipe((0, _gulpFilter2.default)(function (file) {
@@ -69,17 +74,11 @@ _gulp2.default.task('webCss', function () {
         outputStyle: 'nested'
     };
 
-    _gulp2.default.src('./src/css/main.scss').pipe((0, _gulpSass2.default)(sassOpts).on('error', _gulpSass2.default.logError)).pipe((0, _gulpAutoprefixer2.default)({ browsers: ['ff >= 4', 'Chrome >= 19', 'ie >= 9'], cascade: false })).pipe((0, _gulpCleanCss2.default)()).pipe(_gulp2.default.dest('./dist/css/')).pipe(browserSync.stream());
+    _gulp2.default.src('./src/css/main.scss').pipe((0, _gulpSass2.default)(sassOpts).on('error', _gulpSass2.default.logError)).pipe((0, _gulpAutoprefixer2.default)({ browsers: ['ff >= 4', 'Chrome >= 19', 'ie >= 9'], cascade: false })).pipe((0, _gulpIf2.default)(isProduction, (0, _gulpCleanCss2.default)())).pipe(_gulp2.default.dest('./dist/css/')).pipe(browserSync.stream());
 });
 
 _gulp2.default.task('webJs', function () {
-    _gulp2.default.src('./src/js/**/*.es6').pipe((0, _gulpPlumber2.default)()).pipe((0, _gulpBabel2.default)(babelOpts)).pipe((0, _gulpUglify2.default)()).pipe(_gulp2.default.dest('./dist/js/')).pipe(browserSync.stream());
-});
-
-_gulp2.default.task('normalize', function () {
-    var sassNormalizeOpts = { includePaths: ['node_modules/foundation-sites/scss'] };
-    //outputStyle: 'compressed'
-    _gulp2.default.src("./src/css/normalize.scss").pipe((0, _gulpSass2.default)(sassNormalizeOpts).on('error', _gulpSass2.default.logError)).pipe((0, _gulpCleanCss2.default)()).pipe((0, _gulpRename2.default)({ basename: 'normalize.min' })).pipe(_gulp2.default.dest('./dist/css/'));
+    _gulp2.default.src('./src/js/**/*.es6').pipe((0, _gulpPlumber2.default)()).pipe((0, _gulpConcat2.default)('main.es6')).pipe((0, _gulpBabel2.default)(babelOpts)).pipe((0, _gulpIf2.default)(isProduction, (0, _gulpUglify2.default)())).pipe(_gulp2.default.dest('./dist/js/')).pipe(browserSync.stream());
 });
 
 _gulp2.default.task('project', function () {
