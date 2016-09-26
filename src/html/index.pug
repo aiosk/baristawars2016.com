@@ -1,72 +1,82 @@
 extends _layout/_master.pug
 block body-css
     link(rel='stylesheet', href='https://code.jquery.com/ui/1.12.0/themes/base/jquery-ui.css')
+
+    link(rel='stylesheet', href='https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/css/materialize.min.css',media="screen,projection")
+    link(rel='stylesheet', href='https://fonts.googleapis.com/icon?family=Material+Icons')
+    link(rel='stylesheet', href='https://fonts.googleapis.com/css?family=Roboto+Condensed')
+
     link(rel='stylesheet', href='https://cdnjs.cloudflare.com/ajax/libs/fullPage.js/2.8.6/jquery.fullPage.min.css')
     link(rel='stylesheet', href='https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css')
 
 block body-js
-    script(src='https://code.jquery.com/ui/1.12.0/jquery-ui.min.js')
-    script(src='https://cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.js')
+    script(src='https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/js/materialize.min.js')
 
-    script(src='https://cdnjs.cloudflare.com/ajax/libs/fullPage.js/2.8.6/vendors/jquery.easings.min.js')
-    script(src='https://cdnjs.cloudflare.com/ajax/libs/fullPage.js/2.8.6/vendors/scrolloverflow.js')
-
-    script(src='https://cdnjs.cloudflare.com/ajax/libs/fullPage.js/2.8.6/jquery.fullPage.min.js')
     script(src='https://use.fontawesome.com/34f88ceba9.js')
 
-block body-script
-    :babel(presets=['es2015'])
-
 block body
-    .fullpage#fullpage
-        .section#section1.fp-noscroll
-            .section__button
-                a(href='#registration').mdl-button.mdl-js-button.mdl-button--fab.mdl-button--accent
-                    //img(src='img/icon--black.png')
-                p.animated.flash start the war
-            .section__footer
-                .section__sponsor-hashtag
-                    .section__sponsor
-                        ul
-                            li: a(href='//www.instagram.com/prodigycoffee_id',class='icon icon--instagram'): i.fa.fa-instagram.fa-2x
-                    .section__hashtag #indonesiabaristawars2016
-        .section#section2
-            .form.mdl-card.mdl-shadow--2dp
-                .mdl-progress.mdl-js-progress.mdl-progress__indeterminate
-                .mdl-card__title.mdl-card--expand
-                    img(src='img/logo__text.png')
-                    //img#upload_picture
-                .mdl-card__supporting-text
-                    form#form_registration(method='POST', action='/registration', enctype='multipart/form-data')
-                        .mdl-grid
-                            .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label
-                                input#register_idcard.mdl-textfield__input(type='text', name='idcard',)
-                                label(for='register_idcard').mdl-textfield__label ID card no.
-                        .mdl-grid
-                            .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label
-                                input#register_name.mdl-textfield__input(type='text', name='name',)
-                                label(for='register_name').mdl-textfield__label name
-                        .mdl-grid
-                            .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label
-                                input#register_email.mdl-textfield__input(type='email', name='email',)
-                                label(for='register_email').mdl-textfield__label email
-                        .mdl-grid
-                            .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label
-                                input#register_dob.mdl-textfield__input(type='text', name='dob',)
-                                label(for='register_dob').mdl-textfield__label date of birth
-                        .mdl-grid
-                            label.form__upload(for='register_picture')
-                                span.mdl-button.mdl-js-button.mdl-button--accent(style={'border': 'thin solid'}) choose picture
-                                input#register_picture(type='file', name='picture', accept='image/*',)
-                        .mdl-grid
-                            .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label
-                                label(for='register_address').mdl-textfield__label address
-                                textarea#register_address(name='address').mdl-textfield__input
-                        .mdl-grid
-                            .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label
-                                label(for='register_coffeeshop').mdl-textfield__label coffeeshop
+    section#main
+        .section__button
+            a(href='#registration').btn-floating.btn-large.waves-effect.waves-light.red
+            p.animated.flash.infinite start the war
+        .section__footer
+            .section__sponsor-hashtag
+                .section__sponsor
+                    ul
+                        li: a(href='//www.instagram.com/prodigycoffee_id',class='icon icon--instagram'): i.fa.fa-instagram.fa-2x
+                .section__hashtag #indonesiabaristawars2016
+    section.row#registration
+        .col.s12.m6.offset-m3
+            .card.z-depth-3
+                .card-content
+                    .card-title
+                        img(src='img/logo__text.png',width='100%')
+                    form.section__form#form_registration(method='POST', action='/registration', enctype='multipart/form-data')
+                        .row
+                            .col.s12.input-field
+                                i.material-icons.prefix assignment_ind
+                                input#register_idcard.validate(type='text', name='idcard',)
+                                label(for='register_idcard') ID Card No. (ex: KTP, SIM)
+                        .row
+                            .col.s12.input-field
+                                i.material-icons.prefix assignment_ind
+                                input#register_name.validate(type='text', name='name',)
+                                label(for='register_name') Name
+                        .row
+                            .col.s12.input-field
+                                i.material-icons.prefix email
+                                input#register_email.validate(type='email', name='email',)
+                                label(for='register_email') Email
+                        .row
+                            .col.s12.file-field.input-field
+                                .image-preview
+                                    img(width='100%')
+                                .btn
+                                    span Photo
+                                        i.material-icons.left add_a_photo
+                                    input#register_picture(type='file', name='picture', accept='image/*',)
+                                //.file-path-wrapper
+                                //    input.file-path.validate(type='text',placeholder='Add a photo')
+                        .row
+                            .col.s12.input-field
+                                i.material-icons.prefix child_care
+                                input#register_dob.validate(type='date', name='dob',).datepicker
+                                label(for='register_dob') Date of birth
+                        .row
+                            .col.s12.input-field
+                                i.material-icons.prefix home
+                                label(for='register_address') Address
+                                textarea#register_address(name='address').materialize-textarea
+                        .row
+                            .col.s12.input-field
+                                i.material-icons.prefix pin_drop
+                                label(for='register_coffeeshop').mdl-textfield__label Coffeeshop
                                 #map
                                 input#register_coffeeshop(type='text').mdl-textfield__input
                                 input#register_coffeeshop_maps(type='hidden', name='coffeeshop_location')
-                        .mdl-grid
-                            button(type='submit')#register_submit.mdl-button.mdl-js-button.mdl-button--raised.mdl-button--accent.mdl-js-ripple-effect submit
+                        .row
+                            .col.s12
+                                .progress
+                                    .indeterminate
+                                button(type='submit',)#register_submit.waves-effect.waves-light.btn submit
+                                    i.material-icons.right send

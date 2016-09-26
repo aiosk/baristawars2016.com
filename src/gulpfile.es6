@@ -8,17 +8,18 @@ import cleanCSS from 'gulp-clean-css';
 import rename from "gulp-rename";
 import filter from 'gulp-filter';
 import uglify from 'gulp-uglify';
+import gulpif from 'gulp-if';
 import concat from 'gulp-concat';
 const browserSync = require('browser-sync').create();
 const {reload} = browserSync;
 
-
 const babelOpts = {presets: ['es2015'], compact: false};
+const isProduction = false;
 
 gulp.task('webHtml', () => {
     const pugOpts = {
         data: {},
-        pretty: false,
+        pretty: (!isProduction),
         compileDebug: true
     };
     gulp.src('./src/html/**/*.pug')
@@ -41,7 +42,7 @@ gulp.task('webCss', () => {
     gulp.src(`./src/css/main.scss`)
         .pipe(sass(sassOpts).on('error', sass.logError))
         .pipe(autoprefixer({browsers: ['ff >= 4', 'Chrome >= 19', 'ie >= 9'], cascade: false}))
-        .pipe(cleanCSS())
+        .pipe(gulpif(isProduction, cleanCSS()))
         .pipe(gulp.dest('./dist/css/'))
         .pipe(browserSync.stream());
 });
@@ -49,20 +50,11 @@ gulp.task('webCss', () => {
 gulp.task('webJs', () => {
     gulp.src('./src/js/**/*.es6')
         .pipe(plumber())
+        .pipe(concat('main.es6'))
         .pipe(babel(babelOpts))
-        .pipe(uglify())
+        .pipe(gulpif(isProduction, uglify()))
         .pipe(gulp.dest('./dist/js/'))
         .pipe(browserSync.stream());
-});
-
-gulp.task('normalize', () => {
-    const sassNormalizeOpts = {includePaths: ['node_modules/foundation-sites/scss']};
-    //outputStyle: 'compressed'
-    gulp.src("./src/css/normalize.scss")
-        .pipe(sass(sassNormalizeOpts).on('error', sass.logError))
-        .pipe(cleanCSS())
-        .pipe(rename({basename: 'normalize.min'}))
-        .pipe(gulp.dest(`./dist/css/`))
 });
 
 gulp.task('project', () => {

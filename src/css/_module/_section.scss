@@ -1,115 +1,97 @@
-$background-color: #333;
-#section1 {
-  background: {
-    color: #fff;
-    //blend-mode: overlay;
-    //color: transparentize($background-color, .3);
-    //image: url('#{$img}/bg.jpg');
-    //size: cover;
-    //repeat: no-repeat;
-    //position: center center;
-  }
-  position: relative;
-}
 
-#section2 {
-  background: $background-color;
+body > section {
+    min-height: 100vh;
 }
 
 .section {
-  position: relative;
-  @include p('e:header', 'e:footer') {
-    position: absolute;
-    display: block;
-    width: 100%;
-    z-index: 9;
-    text-align: center;
-    height: 5rem;
-  }
-  @include e('header') {
-    top: 0;
-  }
-  @include e('footer') {
-    bottom: 0;
-  }
+    position: relative;
+    @include p('e:header', 'e:footer') {
+        position: absolute;
+        display: block;
+        width: 100%;
+        z-index: 9;
+        text-align: center;
+        height: 5rem;
+    }
+    @include e('header') {
+        top: 0;
+    }
+    @include e('footer') {
+        bottom: 0;
+    }
 }
 
 .section {
-
-  @include e('sponsor-hashtag') {
-    @include clearfix;
-    @include absolute-center;
-    @include breakpoint(small down) {
-      width: 200px;
-    }
-  }
-  @include p('e:sponsor', 'e:hashtag') {
-    float: left;
-  }
-  @include e('sponsor') {
-    ul {
-      list-style: none;
-      //text-align: center;
-      margin: 0;
-      padding: 0;
-      @include clearfix;
-    }
-    li {
-      display: inline-block;
-    }
-  }
-
-  @include e('hashtag') {
-    font-size: 10pt;
-    line-height: 30px;
-    color: #333;
-    text-align: center;
-    font-weight: bold;
-    margin-left: 0.5rem;
-  }
-}
-
-.section {
-  @include e('button') {
-    text-align: center;
-
-    .mdl-button {
-      $size: 128px;
-      height: $size;
-      width: $size;
-      min-width: $size;
-      //border: 0.25rem solid #000;
-      //@include breakpoint(medium) {
-      //  $size: 512px;
-      //  height: $size;
-      //  width: $size;
-      //  min-width: $size;
-      //}
-
-      img {
-        $size: 60%;
-        height: $size;
-        width: $size;
+    @include e('sponsor-hashtag') {
+        @include clearfix;
         @include absolute-center;
-        opacity: 0;
-        transition: all .5s;
-      }
-      &:hover {
-        img {
-          opacity: 1;
+        @include breakpoint(small down) {
+            width: 200px;
         }
-      }
+    }
+    @include p('e:sponsor', 'e:hashtag') {
+        float: left;
+    }
+    @include e('sponsor') {
+        ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+        li {
+            display: inline-block;
+        }
+        a {
+            color: #000;
+        }
     }
 
-    p {
-      margin-top: 2rem;
-      text-transform: uppercase;
-      color: #000;
-      //font-family: monospace;
-      font-weight: bold;
-      font-size: 16pt;
-      animation-duration: 2.5s;
-      animation-iteration-count: infinite;
+    @include e('hashtag') {
+        font-size: 10pt;
+        line-height: 30px;
+        color: #333;
+        text-align: center;
+        font-weight: bold;
+        margin-left: 0.5rem;
     }
-  }
+}
+
+.section {
+    @include e('button') {
+        @include absolute-center;
+        $size: 50vw;
+        $max-size: 300px;
+        .btn-floating {
+            width: $size !important;
+            height: $size !important;
+            max-width: $max-size;
+            max-height: $max-size;
+        }
+        p {
+            margin: 1rem 0 0 0;
+            text-align: center;
+            text-transform: uppercase;
+
+            font-weight: bold;
+            animation-duration: 2.5s;
+
+            color: #000;
+            font-size: 16pt;
+            @include breakpoint(medium) {
+                font-size: 30pt;
+            }
+        }
+    }
+}
+
+.section {
+    @include e('form') {
+        .prefix {
+            margin-top: 6px;
+        }
+    }
+}
+
+#registration{
+    background: #eee;
 }
