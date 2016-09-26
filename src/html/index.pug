@@ -35,18 +35,23 @@ block body
                         .row
                             .col.s12.input-field
                                 i.material-icons.prefix assignment_ind
-                                input#register_idcard.validate(type='text', name='idcard',)
+                                input#register_idcard.validate(type='text', name='idcard')
                                 label(for='register_idcard') ID Card No. (ex: KTP, SIM)
                         .row
                             .col.s12.input-field
                                 i.material-icons.prefix assignment_ind
-                                input#register_name.validate(type='text', name='name',)
+                                input#register_name.validate(type='text', name='name')
                                 label(for='register_name') Name
                         .row
                             .col.s12.input-field
                                 i.material-icons.prefix email
-                                input#register_email.validate(type='email', name='email',)
+                                input#register_email.validate(type='email', name='email')
                                 label(for='register_email') Email
+                        .row
+                            .col.s12.input-field
+                                i.material-icons.prefix child_care
+                                input#register_dob.validate(type='date', name='dob').datepicker
+                                label(for='register_dob') Date of birth
                         .row
                             .col.s12.file-field.input-field
                                 .image-preview
@@ -54,14 +59,10 @@ block body
                                 .btn
                                     span Photo
                                         i.material-icons.left add_a_photo
-                                    input#register_picture(type='file', name='picture', accept='image/*',)
-                                //.file-path-wrapper
-                                //    input.file-path.validate(type='text',placeholder='Add a photo')
-                        .row
-                            .col.s12.input-field
-                                i.material-icons.prefix child_care
-                                input#register_dob.validate(type='date', name='dob',).datepicker
-                                label(for='register_dob') Date of birth
+                                    input#register_picture(type='file', name='picture', accept='image/*')
+                                .file-path-wrapper
+                                    input.file-path.validate(type='text',placeholder='Add a photo')
+                                    label
                         .row
                             .col.s12.input-field
                                 i.material-icons.prefix home

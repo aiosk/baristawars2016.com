@@ -42,8 +42,8 @@ const getRegistrationForm = () => {
         if ($form.length > 0) {
 
             $form
-                // .find('button[type="submit"]').prop('disabled', false).end()
-                
+            // .find('button[type="submit"]').prop('disabled', false).end()
+
                 .on('change', '#register_picture', (e)=> {
                     const $this = $(e.target);
                     const $imgTakenEl = $this.closest('.col').find('img');
@@ -81,7 +81,8 @@ const getRegistrationForm = () => {
                         $buttonSubmit.attr('disabled', true);
                     },
                     success(data) {
-                        html2 = Template.flash(data.status, data.message);
+                        // html2 = Template.flash(data.status, data.message);
+                        html2 = data.message;
                         dataAjax = data;
                     },
                     error(xhr){
@@ -91,9 +92,11 @@ const getRegistrationForm = () => {
                         $buttonSubmit.attr('disabled', false);
                         if (dataAjax != null && dataAjax.element != '') {
                             element.find(`[name=${dataAjax.element}]`)
-                                .closest('.col').append(html2).end()
-                                .trigger('focus');
+                                .trigger('focus')
+                                .closest('.col').find('label').attr('data-error', html2).end().end()
+                                .closest('.col').find('.validate').addClass('invalid')
                         } else {
+                            html2 = Template.flash(dataAjax.status, html2);
                             $buttonSubmit.before(html2);
                         }
                         Progress.hide();
