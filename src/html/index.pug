@@ -17,7 +17,8 @@ block body-js
 block body
     section#main
         .section__button
-            a(href='#registration').btn-floating.btn-large.waves-effect.waves-light.red
+            a(href='#registration').panic-button
+                .inner
             p.animated.flash.infinite start the war
         .section__footer
             .section__sponsor-hashtag
@@ -56,7 +57,7 @@ block body
                             .col.s12.file-field.input-field
                                 .image-preview
                                     img(width='100%')
-                                .btn
+                                .btn.deep-orange.darken-4
                                     span Photo
                                         i.material-icons.left add_a_photo
                                     input#register_picture(type='file', name='picture', accept='image/*')
@@ -76,8 +77,18 @@ block body
                                 input#register_coffeeshop(type='text').mdl-textfield__input
                                 input#register_coffeeshop_maps(type='hidden', name='coffeeshop_location')
                         .row
+                            .col.s12.input-field
+                                i.material-icons.prefix assignment_ind
+
+                                select(name='position').browser-default
+                                    option(value='',disabled,selected) Position
+                                    option(value='owner') Owner
+                                    option(value='barista') Barista
+                                    option(value='independent') Independent
+                                //label Position
+                        .row.action
                             .col.s12
-                                .progress
-                                    .indeterminate
-                                button(type='submit',)#register_submit.waves-effect.waves-light.btn submit
+                                .progress.deep-orange.lighten-2
+                                    .indeterminate.deep-orange.darken-4
+                                button(type='submit',)#register_submit.waves-effect.waves-light.btn.deep-orange.darken-4 submit
                                     i.material-icons.right send

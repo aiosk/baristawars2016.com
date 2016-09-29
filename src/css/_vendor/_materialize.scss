@@ -1,3 +1,11 @@
 .row {
     margin-bottom: 0 !important;
+    &.action{
+        margin-top: 3rem;
+    }
+}
+
+select.browser-default {
+    width: calc(100% - 3rem);
+    margin-left: 3rem;
 }
