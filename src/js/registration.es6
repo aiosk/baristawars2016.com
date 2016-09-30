@@ -90,11 +90,11 @@ const getRegistrationForm = () => {
                     },
                     complete(){
                         $buttonSubmit.attr('disabled', false);
-                        if (dataAjax != null && dataAjax.element != '') {
+                        if (dataAjax != null && dataAjax.element != '' && ['dob', 'gender', 'position'].indexOf(dataAjax.element) === -1) {
                             element.find(`[name=${dataAjax.element}]`)
                                 .trigger('focus')
                                 .closest('.col').find('label').attr('data-error', html2).end().end()
-                                .closest('.col').find('.validate').addClass('invalid')
+                                .closest('.col').find('.validate').removeClass('valid invalid').addClass('invalid')
                         } else {
                             html2 = Template.flash(dataAjax.status, html2);
                             $buttonSubmit.before(html2);

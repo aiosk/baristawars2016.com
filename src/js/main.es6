@@ -27,5 +27,6 @@ $(()=> {
 
     // $('section').height($(window).height());
     getRegistrationForm();
-
+    
+    $('select').material_select()
 });

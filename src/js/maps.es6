@@ -1,4 +1,3 @@
-
 // init maps
 const initAutocomplete = ()=> {
     // var map = new google.maps.Map(document.getElementById('map'), {
@@ -53,9 +52,13 @@ const initAutocomplete = ()=> {
             console.log(place);
             $('#register_coffeeshop_maps').val(JSON.stringify({
                 name: place.name,
-                lat: place.geometry.location.lat(),
-                lng: place.geometry.location.lng(),
-                vicinity: place.vicinity
+                geometry: JSON.stringify({
+                    lat: place.geometry.location.lat(),
+                    lng: place.geometry.location.lng()
+                }),
+                vicinity: place.vicinity,
+                location: JSON.stringify(place.address_components),
+                place_id: place.place_id
             }));
 
             // markers.push(new google.maps.Marker({

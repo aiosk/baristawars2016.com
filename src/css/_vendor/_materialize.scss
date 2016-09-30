@@ -1,11 +1,16 @@
 .row {
     margin-bottom: 0 !important;
-    &.action{
+    &.action {
         margin-top: 3rem;
     }
 }
 
-select.browser-default {
+.gender {
+    //display: block;
+    //float: left;
     width: calc(100% - 3rem);
     margin-left: 3rem;
+    p {
+        margin-left: -1rem !important;
+    }
 }

@@ -14,7 +14,7 @@ const browserSync = require('browser-sync').create();
 const {reload} = browserSync;
 
 const babelOpts = {presets: ['es2015'], compact: false};
-const isProduction = true;
+const isProduction = false;
 
 gulp.task('webHtml', () => {
     const pugOpts = {
