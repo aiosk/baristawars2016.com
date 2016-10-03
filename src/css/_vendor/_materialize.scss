@@ -6,11 +6,13 @@
 }
 
 .gender {
-    //display: block;
-    //float: left;
     width: calc(100% - 3rem);
     margin-left: 3rem;
     p {
         margin-left: -1rem !important;
     }
+}
+
+.btn, .btn-large, .btn-flat {
+    padding: 1px 1rem;
 }

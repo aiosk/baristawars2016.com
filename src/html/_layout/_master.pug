@@ -6,25 +6,26 @@ html.no-js(lang='')
         title Barista Wars 2016
         meta(name='description', content='Barista Wars 2016')
         meta(name='viewport', content='width=device-width, initial-scale=1.0')
-        block master-css
-            link(rel='apple-touch-icon', href='apple-touch-icon.png')
-            link(rel='stylesheet', type='text/css', href='https://cdnjs.cloudflare.com/ajax/libs/normalize/4.2.0/normalize.min.css')
-            link(rel='stylesheet', type='text/css', href='css/main.css')
+        link(rel='apple-touch-icon', href='apple-touch-icon.png')
+        link(rel='stylesheet', type='text/css', href='https://cdnjs.cloudflare.com/ajax/libs/normalize/4.2.0/normalize.min.css')
         block body-css
+        block master-css
+            link(rel='stylesheet', type='text/css', href='//baristawars2016.com/css/main.css',media="screen,projection")
 
     body
-        | <!--[if IE]>
-        | #[p.browserupgrade You are using an <strong>outdated</strong> browser. Please <a href='http://browsehappy.com/'> upgrade your browser</a> to improve your experience.]
-        | <![endif]-->
+        block master-ie8
+            | <!--[if IE]>
+            | #[p.browserupgrade You are using an <strong>outdated</strong> browser. Please <a href='http://browsehappy.com/'> upgrade your browser</a> to improve your experience.]
+            | <![endif]-->
 
         block body
         block master-js
             script(src='https://cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.js')
             script(src='https://code.jquery.com/jquery-3.1.0.min.js')
             script(src='https://code.jquery.com/ui/1.12.0/jquery-ui.min.js')
+            block body-script-src
+            script(src='//baristawars2016.com/js/main.js')
             block body-js
-            script(src='js/main.js')
-            block body-js2
             script
                 block body-script
             script.

@@ -2,16 +2,13 @@ extends _layout/_master.pug
 block body-css
     link(rel='stylesheet', href='https://code.jquery.com/ui/1.12.0/themes/base/jquery-ui.css')
 
-    link(rel='stylesheet', href='https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/css/materialize.min.css',media="screen,projection")
     link(rel='stylesheet', href='https://fonts.googleapis.com/icon?family=Material+Icons')
     link(rel='stylesheet', href='https://fonts.googleapis.com/css?family=Roboto+Condensed')
 
-    //link(rel='stylesheet', href='https://cdnjs.cloudflare.com/ajax/libs/fullPage.js/2.8.6/jquery.fullPage.min.css')
     link(rel='stylesheet', href='https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css')
 
-block body-js
+block body-script-src
     script(src='https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/js/materialize.min.js')
-
     script(src='https://use.fontawesome.com/34f88ceba9.js')
 
 block body
@@ -44,6 +41,16 @@ block body
                                 input#register_name.validate(type='text', name='name')
                                 label(for='register_name') Name
                         .row
+                            .col.s12.input-field(style={})
+                                i.material-icons.prefix wc
+                                .gender
+                                    p
+                                        input(name="gender" type="radio" value='male').validate#register_gender_male
+                                        label( for="register_gender_male",style={'top':'0'}) Male
+                                    p
+                                        input(name="gender" type="radio" value='female').validate#register_gender_female
+                                        label(for="register_gender_female",style={'top':'0'}) Female
+                        .row
                             .col.s12.input-field
                                 i.material-icons.prefix email
                                 input#register_email.validate(type='email', name='email')
@@ -54,20 +61,10 @@ block body
                                 input#register_dob.validate(type='date', name='dob').datepicker
                                 label(for='register_dob') Date of birth
                         .row
-                            .col.s12.input-field
-                                i.material-icons.prefix wc
-                                .gender
-                                    p
-                                        input(name="gender" type="radio" value='male').validate#register_gender_male
-                                        label( for="register_gender_male") Male
-                                    p
-                                        input(name="gender" type="radio" value='female').validate#register_gender_female
-                                        label(for="register_gender_female") Female
-                        .row
                             .col.s12.file-field.input-field
                                 .image-preview
                                     img(width='100%')
-                                .btn.deep-orange.darken-4
+                                .btn
                                     span
                                         i.material-icons portrait
                                         //i.material-icons.left add_a_photo
@@ -102,7 +99,7 @@ block body
                                 //label Position
                         .row.action
                             .col.s12
-                                .progress.deep-orange.lighten-2
-                                    .indeterminate.deep-orange.darken-4
-                                button(type='submit',)#register_submit.waves-effect.waves-light.btn.deep-orange.darken-4 submit
+                                .progress
+                                    .indeterminate
+                                button(type='submit',)#register_submit.waves-effect.waves-light.btn submit
                                     i.material-icons.right send

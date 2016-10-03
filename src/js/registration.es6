@@ -119,7 +119,7 @@ const getRegistrationForm = () => {
             const f = ()=> {
                 $('#register_coffeeshop').removeAttr('placeholder');
             };
-            delay(f, 1700);
+            delay(f, 2000);
         }
     };
 

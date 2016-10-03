@@ -12,6 +12,12 @@ body > section {
         z-index: 9;
         text-align: center;
         height: 5rem;
+
+        @include breakpoint(small) {
+            @include breakpoint(landscape) {
+                height: 2rem;
+            }
+        }
     }
     @include e('header') {
         top: 0;
@@ -59,19 +65,32 @@ body > section {
 .section {
     @include e('button') {
         @include absolute-center;
-        $size: 50vw;
         $max-size: 300px;
+        $bg: #bf360c;
         a {
+            $size: 50vw;
             width: $size !important;
             height: $size !important;
+            @include breakpoint(landscape) {
+                $size: 40vh;
+                width: $size !important;
+                height: $size !important;
+            }
             max-width: $max-size;
             max-height: $max-size;
 
             display: block;
             margin: 60px auto;
+
+            @include breakpoint(landscape) {
+                margin: 40px auto;
+            }
             border-radius: 50%;
-            background: #b25244;
-            background: linear-gradient(#b25244, #5e1912);
+            //background: #b25244;
+            //background: linear-gradient(#b25244, #5e1912);
+            $bg: #bf360c;
+            background: $bg;
+            background: linear-gradient($bg, darken(saturate(adjust-hue($bg, -2.1100), 23.1417), 26.2745));
             position: relative;
             cursor: pointer;
             padding: 13%;
@@ -118,7 +137,7 @@ body > section {
                 width: 100%;
                 height: 100%;
                 border-radius: inherit;
-                background: linear-gradient(#8a2c20, #9e4235);
+                background: linear-gradient(darken(saturate(adjust-hue($bg, -0.8439), 17.6375), 14.9020), darken(saturate(adjust-hue($bg, -0.2078), 5.0476), 6.8627));
                 display: block;
                 box-shadow: 0 -2px 5px rgba(255, 255, 255, 0.05),
                 0 2px 5px rgba(255, 255, 255, 0.1);
