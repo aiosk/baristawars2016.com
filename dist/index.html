@@ -8,13 +8,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="apple-touch-icon" href="apple-touch-icon.png">
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/4.2.0/normalize.min.css">
-    <link rel="stylesheet" type="text/css" href="css/main.css">
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.0/themes/base/jquery-ui.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/css/materialize.min.css" media="screen,projection">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto+Condensed">
-    <!--link(rel='stylesheet', href='https://cdnjs.cloudflare.com/ajax/libs/fullPage.js/2.8.6/jquery.fullPage.min.css')-->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="//baristawars2016.com/css/main.css" media="screen,projection">
   </head>
   <body>
     <!--[if IE]>
@@ -56,6 +54,20 @@
                 </div>
               </div>
               <div class="row">
+                <div class="col s12 input-field"><i class="material-icons prefix">wc</i>
+                  <div class="gender">
+                    <p>
+                      <input class="validate" name="gender" type="radio" value="male" id="register_gender_male">
+                      <label for="register_gender_male" style="top:0">Male</label>
+                    </p>
+                    <p>
+                      <input class="validate" name="gender" type="radio" value="female" id="register_gender_female">
+                      <label for="register_gender_female" style="top:0">Female</label>
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
                 <div class="col s12 input-field"><i class="material-icons prefix">email</i>
                   <input class="validate" id="register_email" type="email" name="email">
                   <label for="register_email">Email</label>
@@ -68,23 +80,9 @@
                 </div>
               </div>
               <div class="row">
-                <div class="col s12 input-field"><i class="material-icons prefix">wc</i>
-                  <div class="gender">
-                    <p>
-                      <input class="validate" name="gender" type="radio" value="male" id="register_gender_male">
-                      <label for="register_gender_male">Male</label>
-                    </p>
-                    <p>
-                      <input class="validate" name="gender" type="radio" value="female" id="register_gender_female">
-                      <label for="register_gender_female">Female</label>
-                    </p>
-                  </div>
-                </div>
-              </div>
-              <div class="row">
                 <div class="col s12 file-field input-field">
                   <div class="image-preview"><img width="100%"></div>
-                  <div class="btn deep-orange darken-4"><span><i class="material-icons">portrait</i>
+                  <div class="btn"><span><i class="material-icons">portrait</i>
                       <!--i.material-icons.left add_a_photo--></span>
                     <input id="register_picture" type="file" name="picture" accept="image/*">
                   </div>
@@ -124,10 +122,10 @@
               </div>
               <div class="row action">
                 <div class="col s12">
-                  <div class="progress deep-orange lighten-2">
-                    <div class="indeterminate deep-orange darken-4"></div>
+                  <div class="progress">
+                    <div class="indeterminate"></div>
                   </div>
-                  <button class="waves-effect waves-light btn deep-orange darken-4" type="submit" id="register_submit">submit<i class="material-icons right">send</i></button>
+                  <button class="waves-effect waves-light btn" type="submit" id="register_submit">submit<i class="material-icons right">send</i></button>
                 </div>
               </div>
             </form>
@@ -140,7 +138,7 @@
     <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/js/materialize.min.js"></script>
     <script src="https://use.fontawesome.com/34f88ceba9.js"></script>
-    <script src="js/main.js"></script>
+    <script src="//baristawars2016.com/js/main.js"></script>
     <script>
     </script>
     <script>

@@ -348,7 +348,7 @@ var getRegistrationForm = function getRegistrationForm() {
             var f = function f() {
                 $('#register_coffeeshop').removeAttr('placeholder');
             };
-            delay(f, 1700);
+            delay(f, 2000);
         }
     };
 

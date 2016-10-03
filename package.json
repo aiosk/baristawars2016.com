@@ -22,6 +22,7 @@
     "gulp-sass": "^2.3.2",
     "gulp-uglify": "^2.0.0",
     "jstransformer-babel": "^2.1.0",
+    "materialize-css": "^0.97.7",
     "sass-bem": "^2.5.3"
   },
   "scripts": {

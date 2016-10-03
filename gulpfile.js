@@ -70,7 +70,11 @@ _gulp2.default.task('webHtml', function () {
 
 _gulp2.default.task('webCss', function () {
     var sassOpts = {
-        includePaths: ['node_modules/foundation-sites/scss', 'node_modules/sass-bem/'],
+        // includePaths: [
+        //     'node_modules/foundation-sites/scss',
+        //     'node_modules/materialize-css/sass/',
+        //     'node_modules/sass-bem/'
+        // ],
         outputStyle: 'nested'
     };
 
