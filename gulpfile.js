@@ -55,7 +55,7 @@ var reload = browserSync.reload;
 
 
 var babelOpts = { presets: ['es2015'], compact: false };
-var isProduction = false;
+var isProduction = false; 
 
 _gulp2.default.task('webHtml', function () {
     var pugOpts = {
