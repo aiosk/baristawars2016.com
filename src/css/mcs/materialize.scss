@@ -19,10 +19,10 @@ $success-color: color("green", "darken-2");
 
 // components
 @import "../../../node_modules/materialize-css/sass/components/global";
-//@import "../../../node_modules/materialize-css/sass/components/icons-material-design";
+@import "../../../node_modules/materialize-css/sass/components/icons-material-design";
 @import "../../../node_modules/materialize-css/sass/components/grid";
 //@import "../../../node_modules/materialize-css/sass/components/navbar";
-//@import "../../../node_modules/materialize-css/sass/components/roboto";
+@import "../../../node_modules/materialize-css/sass/components/roboto";
 @import "../../../node_modules/materialize-css/sass/components/typography";
 @import "../../../node_modules/materialize-css/sass/components/cards";
 //@import "../../../node_modules/materialize-css/sass/components/toast";
@@ -38,7 +38,7 @@ $success-color: color("green", "darken-2");
 @import "../../../node_modules/materialize-css/sass/components/forms/forms";
 //@import "../../../node_modules/materialize-css/sass/components/table_of_contents";
 //@import "../../../node_modules/materialize-css/sass/components/sideNav";
-//@import "../../../node_modules/materialize-css/sass/components/preloader";
+@import "../../../node_modules/materialize-css/sass/components/preloader";
 //@import "../../../node_modules/materialize-css/sass/components/slider";
 //@import "../../../node_modules/materialize-css/sass/components/carousel";
 @import "../../../node_modules/materialize-css/sass/components/date_picker/default";

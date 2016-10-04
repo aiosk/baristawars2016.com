@@ -26,7 +26,7 @@ $(()=> {
     });
 
     // $('section').height($(window).height());
-    getRegistrationForm();
-    
+    getRegistrationForm();  
+
     $('select').material_select()
 });
